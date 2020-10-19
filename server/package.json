@@ -1,0 +1,17 @@
+{
+  "name": "tasystemserver",
+  "version": "1.0.0",
+  "description": "hdp application server",
+  "main": "index.js",
+  "private":"true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "C Boyle",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  }
+}
