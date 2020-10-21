@@ -13,10 +13,12 @@ homeemail: String,
 employer: String,
 grade: String,
 workemail: String,
+fulltime: Boolean,
 skills: [{ skill: String }],
-status: { type: String, default: "Unvalidated" },
-applicationdate: { type: Date, default: Date.now }
-})
+status: { type: String, default: "Unvalidated" }
+},
+{ timestamps: true }
+)
 
 const Applicant = mongoose.model('Applicant', ApplicantSchema)
 
