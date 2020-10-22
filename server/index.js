@@ -1,6 +1,8 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
+const cors = require('cors')
+
 const connectDB = require('./config/db')
 
 // Load environment variables
@@ -15,6 +17,9 @@ const app = express()
 // Add Request Body parsers
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+// Add CORS middleware
+app.use(cors())
 
 // Add Dev Logging
 if (process.env.NODE_ENV === 'development') {

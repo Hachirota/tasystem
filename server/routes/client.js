@@ -12,8 +12,13 @@ router.get('/', (req, res) => {
 // @desc Get List of Providing Employers for Applicant Form
 // @route GET /client/providers
 router.get('/providers', async (req, res) => {
-    const data = await Client.find({ providingapplicants: true }, 'name').lean()
-    res.status(200).send(data)
+    try {
+        const data = await Client.find({ providingapplicants: true }, 'name').lean()
+        res.status(200).send(data)
+    } catch (error) {
+        console.error(error)
+    }
+
 })
 
 // @desc Add client(s) to db

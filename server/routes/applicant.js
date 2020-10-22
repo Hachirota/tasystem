@@ -3,15 +3,25 @@ const router = express.Router()
 
 const Applicant = require('../models/Applicant')
 
-// @desc Current Test Route
-// @route GET /client
-router.get('/', (req, res) => {
-    res.send('Applicant Route')
+// @desc Get All Applicants
+// @route GET /applicant
+router.get('/', async (req, res) => {
+    try {
+        const data = await Applicant.find()
+        .populate('employer', 'name')
+
+        console.log(data)
+        res.status(200).send()
+
+
+    } catch (error) {
+        console.error(error)
+    }
 })
 
 
 // @desc Add applicant(s) to db
-// @route POST /client
+// @route POST /applicant
 router.post('/', async (req, res) => {
     try {
         console.log(req.body)
