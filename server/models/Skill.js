@@ -1,5 +1,3 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const SkillSchema = new mongoose.Schema({
-
-}, { timestamps: true})
+const SkillSchema = new mongoose.Schema({}, { timestamps: true });

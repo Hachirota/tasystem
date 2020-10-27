@@ -1,15 +1,16 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-
-const RequestSchema = new mongoose.Schema({
+const RequestSchema = new mongoose.Schema(
+  {
     graderequired: String,
-    skillsrequired: [{ skill: String, essential: Boolean}],
+    skillsrequired: [{ skill: String, essential: Boolean }],
     fulltime: Boolean,
     numberrequired: Number,
-    daterequired: Date},
-    { timestamps: true }
-)
+    daterequired: Date,
+  },
+  { timestamps: true }
+);
 
-const Request = mongoose.model('Request', RequestSchema)
+const Request = mongoose.model("Request", RequestSchema);
 
-module.exports = Request
+module.exports = Request;

@@ -1,40 +1,39 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const morgan = require('morgan')
-const cors = require('cors')
+const express = require("express");
+const dotenv = require("dotenv");
+const morgan = require("morgan");
+const cors = require("cors");
 
-const connectDB = require('./config/db')
+const connectDB = require("./config/db");
 
 // Load environment variables
-dotenv.config({ path: './config/config.env' })
+dotenv.config({ path: "./config/config.env" });
 
 // Connect to database
-connectDB()
+connectDB();
 
 // Create express instance
-const app = express()
+const app = express();
 
 // Add Request Body parsers
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Add CORS middleware
-app.use(cors())
+app.use(cors());
 
 // Add Dev Logging
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
 
 // Load port env variable
-const PORT = process.env.PORT || 3000
-
+const PORT = process.env.PORT || 3000;
 
 // Load routes
-app.use('/applicant', require('./routes/applicant'))
-app.use('/client', require('./routes/client'))
+app.use("/applicant", require("./routes/applicant"));
+app.use("/client", require("./routes/client"));
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`)
-})
+  console.log(`Server running in ${process.env.NODE_ENV} on port ${PORT}`);
+});
