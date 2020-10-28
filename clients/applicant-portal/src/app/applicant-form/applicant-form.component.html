@@ -4,6 +4,12 @@
     <label>PPS Number</label>
     <input class="form-control col-6" type="text" formControlName="ppsnumber" />
   </div>
+  <div
+    *ngIf="ppsnumber.invalid && (ppsnumber.dirty || ppsnumber.touched)"
+    class="alert alert-danger"
+  >
+    Please enter a PPS Number
+  </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>First Name</label>
@@ -79,7 +85,7 @@
       class="form-group"
       *ngFor="let skill of skills.controls; let i = index"
     >
-      <select [formControlName]="i" class="form-control">
+      <select [formControlName]="i" class="custom-select">
         <option selected>Please select a skill</option>
         <option *ngFor="let skill of availableSkills">{{ skill }}</option>
       </select>
@@ -91,17 +97,3 @@
   <hr />
   <button type="submit" class="btn btn-primary">Submit</button>
 </Form>
-
-<!-- ppsnumber: String,
-firstname: String,
-surname: String,
-address1: String,
-address2: String,
-eircode: String,
-county: String,
-mobile: String,
-homeemail: String,
-employer: {type: mongoose.Schema.Types.ObjectId, ref: 'Client'},
-grade: String,
-workemail: String,
-fulltime: Boolean, -->
