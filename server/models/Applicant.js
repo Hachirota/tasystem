@@ -16,6 +16,7 @@ const ApplicantSchema = new mongoose.Schema(
     workemail: String,
     fulltime: Boolean,
     skills: [String],
+    place_id: String,
     status: { type: String, default: "Unvalidated" },
   },
   { timestamps: true }
