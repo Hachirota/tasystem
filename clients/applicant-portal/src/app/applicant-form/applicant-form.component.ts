@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, Validators } from "@angular/forms";
 import { ApiRequestService } from "../api-request.service";
 
 @Component({
@@ -29,20 +29,21 @@ export class ApplicantFormComponent implements OnInit {
   ];
 
   applicantForm = this.fb.group({
-    ppsnumber: [],
-    firstName: [],
-    surname: [],
-    address1: [],
-    address2: [],
-    eircode: [],
-    county: [],
-    mobile: [],
-    homeemail: [],
-    employer: [],
-    grade: [],
-    workemail: [],
-    fulltime: [],
-    skills: this.fb.array([this.fb.control("")]),
+    ppsnumber: ["", Validators.required],
+    firstName: ["", Validators.required],
+    surname: ["", Validators.required],
+    address1: ["", Validators.required],
+    address2: [""],
+    eircode: ["", Validators.required],
+    county: ["", Validators.required],
+    country: ["Ireland"],
+    mobile: ["", Validators.required],
+    homeemail: ["", [Validators.required, Validators.email]],
+    employer: ["", Validators.required],
+    grade: ["", Validators.required],
+    workemail: ["", Validators.required],
+    fulltime: ["", Validators.required],
+    skills: this.fb.array([this.fb.control("", Validators.required)]),
   });
 
   constructor(private apiService: ApiRequestService, private fb: FormBuilder) {}
@@ -55,6 +56,10 @@ export class ApplicantFormComponent implements OnInit {
     this.apiService
       .getEmployers()
       .subscribe((employers) => (this.employers = employers));
+  }
+
+  get ppsnumber() {
+    return this.applicantForm.get("ppsnumber");
   }
 
   get skills() {
