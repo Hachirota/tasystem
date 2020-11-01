@@ -1,0 +1,18 @@
+<div class="container fluid">
+  <div class="row">
+    <nav class="col-md-3">
+      <div class="sidebar-sticky pt-3">
+        <mat-action-list>
+          <button mat-list-item routerLink="/admin/applicants">
+            View Applicants
+          </button>
+          <button mat-list-item>View Requests</button>
+        </mat-action-list>
+      </div>
+    </nav>
+
+    <div class="col-md-9">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
