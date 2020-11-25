@@ -15,7 +15,7 @@ const ApplicantSchema = new mongoose.Schema(
     grade: String,
     workemail: String,
     fulltime: Boolean,
-    skills: [String],
+    skills: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
     place_id: String,
     status: { type: String, default: "Unvalidated" },
   },

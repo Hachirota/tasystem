@@ -32,6 +32,7 @@ const PORT = process.env.PORT || 3000;
 // Load routes
 app.use("/applicant", require("./routes/applicant"));
 app.use("/client", require("./routes/client"));
+app.use("/skills", require("./routes/skills"));
 
 // Start server
 app.listen(PORT, () => {
