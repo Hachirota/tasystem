@@ -8,10 +8,14 @@ const gmaps = require("../config/gmapsApi");
 // @route GET /applicant
 router.get("/", async (req, res) => {
   try {
-    const data = await Applicant.find().populate("employer", "name");
+    const data = await Applicant.find()
+      .populate([
+        { path: "employer", select: "name" },
+        { path: "skills", populate: { path: "skills", select: "name" } },
+      ])
+      .lean();
 
-    console.log(data);
-    res.status(200).send();
+    res.status(200).send(data);
   } catch (error) {
     console.error(error);
   }
@@ -42,6 +46,18 @@ router.post("/", async (req, res) => {
 
     appBody.place_id = id.data.results[0].place_id;
 
+    await Applicant.create(req.body);
+
+    res.status(200).send();
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// @desc add applicant(s) to db w/out gmaps id step
+// @route POST /applicant/devadd
+router.post("/devadd", async (req, res) => {
+  try {
     await Applicant.create(req.body);
 
     res.status(200).send();
