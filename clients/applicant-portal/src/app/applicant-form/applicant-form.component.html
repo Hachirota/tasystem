@@ -97,7 +97,9 @@
         >
           <select [formControlName]="i" class="custom-select">
             <option selected>Please select a skill</option>
-            <option *ngFor="let skill of availableSkills">{{ skill }}</option>
+            <option *ngFor="let skill of availableSkills" [value]="skill._id">
+              {{ skill.name }}
+            </option>
           </select>
         </div>
         <button type="button" class="btn btn-info" (click)="addSkill()">
