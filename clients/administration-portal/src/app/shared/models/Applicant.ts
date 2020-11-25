@@ -1,18 +1,24 @@
 export interface Applicant {
-  ppsnumber: String;
-  firstname: String;
-  surname: String;
-  address1: String;
-  address2: String;
-  eircode: String;
-  county: String;
-  mobile: String;
-  homeemail: String;
-  employer: String;
-  grade: String;
-  workemail: String;
-  fulltime: Boolean;
-  skills: [String];
-  place_id: String;
-  status: String;
+  _id: string;
+  ppsnumber: string;
+  firstname: string;
+  surname: string;
+  address1: string;
+  address2: string;
+  eircode: string;
+  county: string;
+  mobile: string;
+  homeemail: string;
+  employer: {
+    _id: string;
+    name: string;
+  };
+  grade: string;
+  workemail: string;
+  fulltime: boolean;
+  skills: [string];
+  place_id: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
 }
