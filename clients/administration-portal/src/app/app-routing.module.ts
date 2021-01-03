@@ -11,6 +11,13 @@ const routes: Routes = [
         (m) => m.InternalusersModule
       ),
   },
+  {
+    path: 'clients',
+    loadChildren: () =>
+      import('./modules/externalusers/externalusers.module').then(
+        (m) => m.ExternalusersModule
+      ),
+  },
 ];
 
 @NgModule({
