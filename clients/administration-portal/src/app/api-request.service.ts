@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Applicant } from './shared/models/Applicant';
+import { ClientContact } from './shared/models/ClientContact';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +20,25 @@ export class ApiRequestService {
     return this.http.get<any>('http://localhost:3000/client/providers');
   }
 
+  getSkills() {
+    return this.http.get<any>('http://localhost:3000/skills');
+  }
+
   getApplicants() {
     return this.http.get<any>('http://localhost:3000/applicant');
   }
 
-  // postApplicant(applicant) {
-  //   return this.http.post<any>(
-  //     "http://localhost:3000/applicant",
-  //     applicant,
-  //     this.httpOptions
-  //   );
-  // }
+  getClientContact() {
+    return this.http.get<ClientContact>(
+      'http://localhost:3000/client/clientcontact'
+    );
+  }
+
+  postRequest(request) {
+    return this.http.post<Request>(
+      'http://localhost:3000/client/request',
+      request,
+      this.httpOptions
+    );
+  }
 }
