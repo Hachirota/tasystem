@@ -1,0 +1,18 @@
+<div class="container fluid">
+  <div class="row">
+    <nav class="col-xl">
+      <div class="sidebar-sticky pt-3">
+        <mat-action-list>
+          <button mat-list-item routerLink="/clients/addrequest">
+            Submit Request
+          </button>
+          <button mat-list-item>View Requests</button>
+        </mat-action-list>
+      </div>
+    </nav>
+
+    <div class="col-xl-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
