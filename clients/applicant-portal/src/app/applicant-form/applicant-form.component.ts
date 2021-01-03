@@ -23,7 +23,7 @@ export class ApplicantFormComponent implements OnInit {
 
   applicantForm = this.fb.group({
     ppsnumber: ['', Validators.required],
-    firstName: ['', Validators.required],
+    firstname: ['', Validators.required],
     surname: ['', Validators.required],
     address1: ['', Validators.required],
     address2: [''],
