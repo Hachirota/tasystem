@@ -3,10 +3,15 @@ const mongoose = require("mongoose");
 const RequestSchema = new mongoose.Schema(
   {
     graderequired: String,
-    skillsrequired: [{ skill: String, essential: Boolean }],
+    skillsrequested: [
+      {
+        skill: { type: mongoose.Schema.Types.ObjectId, ref: "Skill" },
+        essential: Boolean,
+      },
+    ],
     fulltime: Boolean,
     numberrequired: Number,
-    daterequired: Date,
+    requester: { type: mongoose.Schema.Types.ObjectId, ref: "ClientContact" },
   },
   { timestamps: true }
 );
