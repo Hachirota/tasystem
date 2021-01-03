@@ -40,13 +40,22 @@ router.post("/", async (req, res) => {
 
     let encAddress = address.replace(/ /g, "%20");
 
-    let id = await gmaps.geocode({
+    let gBody = await gmaps.geocode({
       params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
     });
 
-    appBody.place_id = id.data.results[0].place_id;
-
-    await Applicant.create(req.body);
+    appBody.location = {
+      googleplaceid: gBody.data.results[0].place_id,
+      geopoint: {
+        type: "Point",
+        coordinates: [
+          gBody.data.results[0].geometry.location.lng,
+          gBody.data.results[0].geometry.location.lat,
+        ],
+      },
+    };
+    console.log(appBody);
+    await Applicant.create(appBody);
 
     res.status(200).send();
   } catch (error) {
