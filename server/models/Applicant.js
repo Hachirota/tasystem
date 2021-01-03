@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const LocationSchema = require("./Location");
 
 const ApplicantSchema = new mongoose.Schema(
   {
@@ -16,7 +17,9 @@ const ApplicantSchema = new mongoose.Schema(
     workemail: String,
     fulltime: Boolean,
     skills: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
-    place_id: String,
+    location: {
+      type: LocationSchema,
+    },
     status: { type: String, default: "Unvalidated" },
   },
   { timestamps: true }
