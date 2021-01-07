@@ -6,7 +6,7 @@ const RequestSchema = new mongoose.Schema(
     skillsrequested: [
       {
         skill: { type: mongoose.Schema.Types.ObjectId, ref: "Skill" },
-        essential: Boolean,
+        required: Boolean,
       },
     ],
     fulltime: Boolean,
