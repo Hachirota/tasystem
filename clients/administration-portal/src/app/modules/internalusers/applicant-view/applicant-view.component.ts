@@ -22,6 +22,7 @@ export class ApplicantViewComponent implements AfterViewInit, OnInit {
     'status',
     'employer',
     'grade',
+    'viewdetail',
   ];
   dataSource: MatTableDataSource<any>;
   applicantArray = [];
@@ -33,6 +34,10 @@ export class ApplicantViewComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.getApplicants();
+  }
+
+  btnclick(id) {
+    console.log(id);
   }
 
   getApplicants() {
