@@ -4,11 +4,15 @@ const gmaps = require("../config/gmapsApi");
 const Client = require("../models/Client");
 const ClientContact = require("../models/ClientContact");
 const RequestModel = require("../models/Request");
+const Rater = require("../rater");
+
+const rater = new Rater();
 
 // @desc Current Test Route
 // @route GET /client
 router.get("/", (req, res) => {
   res.send("Client Route");
+  rater.rater();
 });
 
 // @desc Get List of Providing Employers for Applicant Form
