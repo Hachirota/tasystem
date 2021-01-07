@@ -10,12 +10,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RequestViewComponent } from './request-view/request-view.component';
+import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 
 @NgModule({
   declarations: [
     InternalusersComponent,
     ApplicantViewComponent,
     InternalSplashComponent,
+    RequestViewComponent,
+    RequestDetailComponent,
   ],
   imports: [
     CommonModule,

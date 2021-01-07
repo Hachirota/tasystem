@@ -4,6 +4,7 @@ import { ApplicantViewComponent } from './applicant-view/applicant-view.componen
 import { InternalSplashComponent } from './internal-splash/internal-splash.component';
 
 import { InternalusersComponent } from './internalusers.component';
+import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', component: InternalSplashComponent },
       { path: 'applicants', component: ApplicantViewComponent },
+      { path: 'requests/requestdetail', component: RequestDetailComponent },
     ],
   },
 ];

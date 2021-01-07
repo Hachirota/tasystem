@@ -1,0 +1,61 @@
+<div class="card mt-3">
+  <h2 class="m-3">Request Information</h2>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      Requester: {{ request.requester.firstname }}
+      {{ request.requester.surname }}
+    </li>
+    <li class="list-group-item">
+      Requesting Organisation: {{ request.requester.client }}
+    </li>
+    <li class="list-group-item">
+      Number Requested: {{ request.numberrequired }}
+    </li>
+    <li class="list-group-item">Grade: {{ request.graderequired }}</li>
+    <li class="list-group-item">
+      Work Pattern: {{ request.fulltime == true ? "Full-Time" : "Part-Time" }}
+    </li>
+  </ul>
+  <h2 class="m-3">Skills Requested</h2>
+  <div class="container">
+    <div class="table">
+      <table class="table">
+        <thead>
+          <th>Skill</th>
+          <th>Required?</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let skill of request.skillsrequested">
+            <td>{{ skill.skill }}</td>
+            <td>{{ skill.required == true ? "Yes" : "No" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h2 class="m-3">Calculated Ratings</h2>
+  <div class="container">
+    <div class="table">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>PPS Number</th>
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>Distance (km)</th>
+            <th>% Skill Match</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rating of ratings">
+            <td>{{ rating.ppsnumber }}</td>
+            <td>{{ rating.firstname }}</td>
+            <td>{{ rating.surname }}</td>
+            <td>{{ rating.distance }}</td>
+            <td>{{ rating.skillfit * 100 }}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
