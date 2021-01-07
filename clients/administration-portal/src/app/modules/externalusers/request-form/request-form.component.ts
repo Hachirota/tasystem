@@ -1,5 +1,11 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  Validators,
+  FormGroup,
+  AbstractControl,
+} from '@angular/forms';
 import { ApiRequestService } from 'src/app/api-request.service';
 import { ClientContact } from 'src/app/shared/models/ClientContact';
 
@@ -30,26 +36,26 @@ export class RequestFormComponent implements OnInit {
       grade: '',
       numberrequired: '',
       fulltime: '',
-      skills: this.fb.array([this.createSkill()]),
+      skillsrequested: this.fb.array([this.createSkill()]),
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getSkills();
     this.getRequester();
   }
 
-  get skillsControls() {
-    return this.requestForm.get('skills')['controls'];
+  get skillsControls(): AbstractControl {
+    return this.requestForm.get('skillsrequested')['controls'];
   }
 
-  getSkills() {
+  getSkills(): void {
     this.apiService
       .getSkills()
       .subscribe((skills) => (this.availableSkills = skills));
   }
 
-  getRequester() {
+  getRequester(): void {
     this.apiService
       .getClientContact()
       .subscribe((contact) => (this.requester = contact));
@@ -63,7 +69,7 @@ export class RequestFormComponent implements OnInit {
   }
 
   addSkill(): void {
-    this.skills = this.requestForm.get('skills') as FormArray;
+    this.skills = this.requestForm.get('skillsrequested') as FormArray;
     this.skills.push(this.createSkill());
   }
 
@@ -71,7 +77,7 @@ export class RequestFormComponent implements OnInit {
     this.skills.removeAt(i);
   }
 
-  submitRequest() {
+  submitRequest(): void {
     this.requestForm.value.requester = this.requester._id;
     this.apiService.postRequest(this.requestForm.value).subscribe();
   }
