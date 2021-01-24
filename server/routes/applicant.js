@@ -3,6 +3,9 @@ const router = express.Router();
 
 const Applicant = require("../models/Applicant");
 const gmaps = require("../config/gmapsApi");
+const Rater = require("../rater");
+
+const rater = new Rater();
 
 // @desc Get All Applicants
 // @route GET /applicant
@@ -55,7 +58,9 @@ router.post("/", async (req, res) => {
       },
     };
     console.log(appBody);
-    await Applicant.create(appBody);
+    await Applicant.create(appBody).then((doc) => {
+      rater.ApplicantToRequestRater(doc._id);
+    });
 
     res.status(200).send();
   } catch (error) {
@@ -63,13 +68,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-// @desc add applicant(s) to db w/out gmaps id step
-// @route POST /applicant/devadd
-router.post("/devadd", async (req, res) => {
-  try {
-    await Applicant.create(req.body);
+// @desc Get Applicant by ID
+// @route GET /applicant/:id
 
-    res.status(200).send();
+router.get("/:id", async (req, res) => {
+  try {
+    const data = await Applicant.findById(req.params.id)
+      .populate([
+        { path: "employer", select: "name" },
+        { path: "skills", populate: { path: "skills", select: "name" } },
+      ])
+      .lean();
+    res.status(200).send(data);
   } catch (error) {
     console.error(error);
   }

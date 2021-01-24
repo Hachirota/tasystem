@@ -12,7 +12,6 @@ const rater = new Rater();
 // @route GET /client
 router.get("/", (req, res) => {
   res.send("Client Route");
-  rater.rater();
 });
 
 // @desc Get List of Providing Employers for Applicant Form
@@ -33,7 +32,6 @@ router.get("/providers", async (req, res) => {
 // @route POST /client
 router.post("/", async (req, res) => {
   try {
-    console.log(req.body);
     await Client.create(req.body);
     res.status(200).send("Client Added");
   } catch (error) {
@@ -43,7 +41,6 @@ router.post("/", async (req, res) => {
 
 router.post("/clientcontact", async (req, res) => {
   try {
-    console.log(req.body);
     let contactBody = req.body;
 
     let address =
@@ -74,8 +71,6 @@ router.post("/clientcontact", async (req, res) => {
       },
     };
 
-    await ClientContact.create(contactBody);
-
     res.status(200).send();
   } catch (error) {
     console.error(error);
@@ -95,8 +90,9 @@ router.get("/clientcontact", async (req, res) => {
 
 router.post("/request", async (req, res) => {
   try {
-    await RequestModel.create(req.body);
-    console.log(req.body);
+    await RequestModel.create(req.body).then((doc) =>
+      rater.RequestToApplicantRater(doc._id)
+    );
     res.status(200).send();
   } catch (error) {
     console.error(error);

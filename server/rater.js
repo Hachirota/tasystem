@@ -1,37 +1,30 @@
 const Applicant = require("./models/Applicant");
 const RequestModel = require("./models/Request");
 const turf = require("@turf/turf");
+const ClientContact = require("./models/ClientContact");
+const Rating = require("./models/Rating");
 
 class Rater {
-  async geoQuery(coordinates) {
-    const within = await Applicant.find({
-      "location.geopoint": {
-        $geoWithin: {
-          $centerSphere: [coordinates, 45 / 6378.1],
-        },
-      },
-    }).populate({ path: "skills" });
-    return within;
-  }
-
   genRating(request, applicant) {
     let results = {
       applicant: applicant._id,
       request: request._id,
+      maxScore: 0,
+      skillScore: 0,
       matchFit: 0,
       distance: 0,
     };
-    let maxScore = 0;
-    let skillScore = 0;
 
     request.skillsrequested.forEach((skill) => {
-      maxScore += skill.required === true ? 100 : 10;
+      results.maxScore += skill.required === true ? 100 : 10;
       applicant.skills.forEach((appSkill) => {
         if (skill.skill.equals(appSkill._id)) {
-          skillScore += skill.required === true ? 100 : 10;
+          results.skillScore += skill.required === true ? 100 : 10;
         }
       });
-      results.matchFit = parseFloat((skillScore / maxScore).toFixed(2));
+      results.matchFit = parseFloat(
+        (results.skillScore / results.maxScore).toFixed(2)
+      );
     });
 
     results.distance = parseFloat(
@@ -43,21 +36,50 @@ class Rater {
         .toFixed(3)
     );
 
-    console.log(maxScore);
-    console.log(results);
-    console.log(applicant.skills);
+    Rating.create(results);
   }
 
-  async rater() {
-    const data = await RequestModel.findOne().populate({ path: "requester" });
-    let matches = await this.geoQuery(
-      data.requester.location.geopoint.coordinates
-    );
+  async ApplicantToRequestRater(applicantID) {
+    const applicant = await Applicant.findById(applicantID).populate({
+      path: "skills",
+    });
 
-    this.genRating(data, matches[0]);
+    let contacts = await ClientContact.find({
+      "location.geopoint": {
+        $geoWithin: {
+          $centerSphere: [applicant.location.geopoint.coordinates, 45 / 6378.1],
+        },
+      },
+    });
+
+    contacts.forEach(async (contact) => {
+      let requests = await RequestModel.find({
+        requester: contact._id,
+      }).populate({
+        path: "requester",
+      });
+      requests.forEach((request) => {
+        this.genRating(request, applicant);
+      });
+    });
+  }
+
+  async RequestToApplicantRater(requestID) {
+    const data = await RequestModel.findById(requestID).populate({
+      path: "requester",
+    });
+    let matches = await Applicant.find({
+      "location.geopoint": {
+        $geoWithin: {
+          $centerSphere: [
+            data.requester.location.geopoint.coordinates,
+            45 / 6378.1,
+          ],
+        },
+      },
+    }).populate({ path: "skills" });
+    matches.forEach((match) => this.genRating(data, match));
   }
 }
 
 module.exports = Rater;
-
-// 45km = 27.9617 miles
