@@ -25,7 +25,12 @@ export class ApiRequestService {
   }
 
   getApplicants() {
-    return this.http.get<any>('http://localhost:3000/applicant');
+    return this.http.get<[Applicant]>('http://localhost:3000/applicant');
+  }
+
+  getApplicant(id: String) {
+    id = id.trim();
+    return this.http.get<Applicant>('http://localhost:3000/applicant/' + id);
   }
 
   getClientContact() {
