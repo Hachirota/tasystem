@@ -16,9 +16,14 @@ export interface Applicant {
   grade: string;
   workemail: string;
   fulltime: boolean;
-  skills: [string];
+  skills: [{ _id: string; name: string; __v: number }];
+  location: {
+    googleplaceid: string;
+    geopoint: { type: string; coordinates: [number, number] };
+  };
   place_id: string;
   status: string;
   createdAt: string;
   updatedAt: string;
+  __v: number;
 }

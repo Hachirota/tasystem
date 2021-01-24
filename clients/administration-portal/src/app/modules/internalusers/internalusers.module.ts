@@ -10,8 +10,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RequestViewComponent } from './request-view/request-view.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
+import { ApplicantDetailComponent } from './applicant-view/applicant-detail/applicant-detail.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { RequestDetailComponent } from './request-view/request-detail/request-de
     InternalSplashComponent,
     RequestViewComponent,
     RequestDetailComponent,
+    ApplicantDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +33,7 @@ import { RequestDetailComponent } from './request-view/request-detail/request-de
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
   ],
 })
 export class InternalusersModule {}

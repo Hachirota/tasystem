@@ -55,8 +55,14 @@
     <!-- Btn Column -->
     <ng-container matColumnDef="viewdetail">
       <th mat-header-cell *matHeaderCellDef>View Detail</th>
-      <td mat-cell *matCellDef="let row" (click)="btnclick(row._id)">
-        View Detail
+      <td mat-cell *matCellDef="let row">
+        <button
+          class="btn btn-outline-secondary btn-sm"
+          type="button"
+          routerLink="./applicant/{{ row._id }}"
+        >
+          View Details
+        </button>
       </td>
     </ng-container>
 
