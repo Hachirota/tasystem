@@ -2,6 +2,7 @@ const _ = require("lodash");
 
 // Class to represent request player within matching game
 class Request {
+  assignedApplicantIDs = [];
   assignedApplicants = [];
   constructor(requestObj) {
     this.id = requestObj.id;
