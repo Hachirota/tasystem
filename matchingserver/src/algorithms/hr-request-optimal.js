@@ -50,6 +50,12 @@ class HRRequestOptimal {
       });
     }
 
+    // Add string representation of applicant IDs
+    returnReq.forEach((request) => {
+      request.assignedApplicants.forEach((applicant) => {
+        request.assignedApplicantIDs.push(applicant.id);
+      });
+    });
     return returnReq;
   }
 
