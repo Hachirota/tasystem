@@ -10,6 +10,7 @@ const RequestSchema = new mongoose.Schema(
       },
     ],
     fulltime: Boolean,
+    status: { type: String, default: "Open" },
     numberrequired: Number,
     requester: { type: mongoose.Schema.Types.ObjectId, ref: "ClientContact" },
   },
