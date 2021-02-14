@@ -5,6 +5,7 @@ import { ApplicantViewComponent } from './applicant-view/applicant-view.componen
 import { InternalSplashComponent } from './internal-splash/internal-splash.component';
 
 import { InternalusersComponent } from './internalusers.component';
+import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
         component: ApplicantDetailComponent,
       },
       { path: 'requests/requestdetail', component: RequestDetailComponent },
+      {
+        path: 'portalusers/createuser',
+        component: RegisterPortalUserComponent,
+      },
     ],
   },
 ];

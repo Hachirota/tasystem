@@ -11,9 +11,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RequestViewComponent } from './request-view/request-view.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 import { ApplicantDetailComponent } from './applicant-view/applicant-detail/applicant-detail.component';
+import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ApplicantDetailComponent } from './applicant-view/applicant-detail/appl
     RequestViewComponent,
     RequestDetailComponent,
     ApplicantDetailComponent,
+    RegisterPortalUserComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +37,7 @@ import { ApplicantDetailComponent } from './applicant-view/applicant-detail/appl
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    ReactiveFormsModule,
   ],
 })
 export class InternalusersModule {}
