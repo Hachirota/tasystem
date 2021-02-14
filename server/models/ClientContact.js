@@ -9,7 +9,7 @@ const ClientContactSchema = new mongoose.Schema(
     address2: String,
     eircode: String,
     county: String,
-    mobile: String,
+    workphone: String,
     email: String,
     client: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
     location: {

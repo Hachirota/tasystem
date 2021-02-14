@@ -42,6 +42,17 @@ router.get("/providers", async (req, res) => {
   }
 });
 
+// @desc Get List of all Clients
+// @route GET /client
+router.get("/", async (req, res) => {
+  try {
+    const data = await Client.find({}, "name").lean();
+    res.status(200).send(data);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // @desc Add client(s) to db
 // @route POST /client
 router.post("/", async (req, res) => {
@@ -53,7 +64,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// @desc Add new client contact to db - HAS NO CLIENT METHOD TO PERFORM THIS ATM
+// @desc Add new client contact to db - HAS NO WEB CLIENT METHOD TO PERFORM THIS ATM
 // @route POST /client/clientcontact
 router.post("/clientcontact", async (req, res) => {
   try {
