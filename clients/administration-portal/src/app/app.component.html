@@ -29,6 +29,25 @@
       >
     </div>
   </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">
+            Login
+          </a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="authService.isAuthenticated()">
+        <li class="nav-item">
+          <a class="nav-link"> Welcome {{ authService.getName() }} </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="logout()"> Logout </a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>
