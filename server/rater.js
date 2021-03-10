@@ -36,7 +36,9 @@ class Rater {
         .toFixed(3)
     );
 
-    Rating.create(results);
+    if (results.matchFit > 0.4) {
+      Rating.create(results);
+    }
   }
 
   async ApplicantToRequestRater(applicantID) {
