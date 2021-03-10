@@ -38,6 +38,26 @@ export class ApiRequestService {
     return this.http.get<Applicant>(this.URI + '/applicant/' + id);
   }
 
+  getRequestRatings(id: String) {
+    let trimmedId = id.trim();
+    return this.http.get<[any]>(this.URI + '/rating/request/' + trimmedId);
+  }
+
+  getApplicantRatings(id: String) {
+    let trimmedId = id.trim();
+    return this.http.get<[any]>(this.URI + '/rating/applicant/' + trimmedId);
+  }
+
+  getStaff(employer: String) {
+    employer = employer.trim();
+    return this.http.get<[Applicant]>(this.URI + '/staff/' + employer);
+  }
+
+  updateApplicant(id: String, body) {
+    id = id.trim();
+    return this.http.put<Applicant>(this.URI + '/applicant/' + id, body);
+  }
+
   getClientContact() {
     return this.http.get<ClientContact>(this.URI + '/client/clientcontact');
   }

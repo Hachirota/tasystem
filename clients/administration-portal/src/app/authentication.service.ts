@@ -9,7 +9,7 @@ const jwt = new JwtHelperService();
 
 class DecodedToken {
   exp: number;
-  username: string;
+  firstname: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -58,6 +58,10 @@ export class AuthenticationService {
     localStorage.setItem('auth_tkn', token);
     localStorage.setItem('auth_meta', JSON.stringify(this.decodedtoken));
     return token;
+  }
+
+  getEmployer(): string {
+    return this.decodedtoken.clientID;
   }
 
   getName(): string {
