@@ -1,0 +1,35 @@
+<div class="card mt-3">
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+    <mat-tab label="Personal Information">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">PPS Number: {{ applicant?.ppsnumber }}</li>
+        <li class="list-group-item">
+          Name: {{ applicant?.firstname }} {{ applicant?.surname }}
+        </li>
+        <li class="list-group-item">Status: {{ applicant?.status }}</li>
+        <li class="list-group-item">Mobile Number: {{ applicant?.mobile }}</li>
+        <li class="list-group-item">
+          Personal E-Mail Address: {{ applicant?.homeemail }}
+        </li>
+        <li class="list-group-item">Address 1: {{ applicant?.address1 }}</li>
+        <li class="list-group-item">Address 2: {{ applicant?.address2 }}</li>
+        <li class="list-group-item">Eircode: {{ applicant?.eircode }}</li>
+        <li class="list-group-item">County: {{ applicant?.county }}</li>
+        <li>
+          <button
+            (click)="validate()"
+            class="btn btn-warning"
+            *ngIf="applicant?.status == 'Unvalidated'"
+          >
+            Validate
+          </button>
+          <button class="btn btn-danger" routerLink="/clients/staff/">
+            Back
+          </button>
+        </li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Employment Information">Content 2</mat-tab>
+    <mat-tab label="Assignment Information">Content 3</mat-tab>
+  </mat-tab-group>
+</div>
