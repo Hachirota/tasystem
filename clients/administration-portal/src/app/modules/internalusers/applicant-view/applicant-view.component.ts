@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { Applicant } from 'src/app/shared/models/Applicant';
   templateUrl: './applicant-view.component.html',
   styleUrls: ['./applicant-view.component.css'],
 })
-export class ApplicantViewComponent implements AfterViewInit, OnInit {
+export class ApplicantViewComponent implements OnInit {
   displayedColumns: string[] = [
     'ppsnumber',
     'firstname',
@@ -36,10 +36,6 @@ export class ApplicantViewComponent implements AfterViewInit, OnInit {
     this.getApplicants();
   }
 
-  btnclick(id) {
-    console.log(id);
-  }
-
   getApplicants() {
     this.api.getApplicants().subscribe((applicants) => {
       this.dataSource = new MatTableDataSource(applicants);
@@ -52,10 +48,6 @@ export class ApplicantViewComponent implements AfterViewInit, OnInit {
         return dataStr.indexOf(filter) != -1;
       };
     });
-  }
-
-  ngAfterViewInit() {
-    console.log(this.applicantArray);
   }
 
   applyFilter(event: Event) {
