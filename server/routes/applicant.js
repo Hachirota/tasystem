@@ -26,46 +26,63 @@ router.get("/", async (req, res) => {
 
 // @desc Add applicant(s) to db
 // @route POST /applicant
-router.post("/", async (req, res) => {
-  try {
-    let appBody = req.body;
+router.post("/", (req, res) => {
+  req.body.forEach(async (applicant) => {
+    try {
+      let appBody = applicant;
 
-    let address =
-      appBody.address1 +
-      " " +
-      appBody.address2 +
-      " " +
-      appBody.eircode +
-      " " +
-      appBody.county +
-      " " +
-      appBody.country;
+      let address =
+        appBody.address1 +
+        " " +
+        appBody.address2 +
+        " " +
+        appBody.eircode +
+        " " +
+        appBody.county +
+        " " +
+        appBody.country;
 
-    let encAddress = address.replace(/ /g, "%20");
+      let encAddress = address.replace(/ /g, "%20");
 
-    let gBody = await gmaps.geocode({
-      params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
-    });
+      let gBody = await gmaps.geocode({
+        params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
+      });
 
-    appBody.location = {
-      googleplaceid: gBody.data.results[0].place_id,
-      geopoint: {
-        type: "Point",
-        coordinates: [
-          gBody.data.results[0].geometry.location.lng,
-          gBody.data.results[0].geometry.location.lat,
-        ],
-      },
-    };
-    console.log(appBody);
-    await Applicant.create(appBody).then((doc) => {
-      rater.ApplicantToRequestRater(doc._id);
-    });
+      if (typeof gBody.data.results[0] !== "undefined") {
+        appBody.location = {
+          googleplaceid: gBody.data.results[0].place_id,
+          geopoint: {
+            type: "Point",
+            coordinates: [
+              gBody.data.results[0].geometry.location.lng,
+              gBody.data.results[0].geometry.location.lat,
+            ],
+          },
+        };
+        await Applicant.create(appBody).then((doc) => {
+          rater.ApplicantToRequestRater(doc._id);
+        });
+        res.status(200).send();
+      }
+    } catch (error) {
+      //console.error(error)
+    }
+  });
+});
 
-    res.status(200).send();
-  } catch (error) {
-    console.error(error);
-  }
+// @desc Update an applicant
+// @route PUT /applicant/:id
+
+router.put("/:id", async (req, res) => {
+  await Applicant.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: "true" },
+    (error, applicant) => {
+      if (error) return res.status(500).send(error);
+      return res.status(200).send(applicant);
+    }
+  );
 });
 
 // @desc Get Applicant by ID

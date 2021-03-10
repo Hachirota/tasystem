@@ -64,7 +64,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// @desc Add new client contact to db - HAS NO WEB CLIENT METHOD TO PERFORM THIS ATM
+// @desc Add new client contact to db - NO LONGER NEEDED?
 // @route POST /client/clientcontact
 router.post("/clientcontact", async (req, res) => {
   try {

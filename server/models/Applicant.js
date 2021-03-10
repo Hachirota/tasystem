@@ -14,8 +14,8 @@ const ApplicantSchema = new mongoose.Schema(
     homeemail: String,
     employer: { type: mongoose.Schema.Types.ObjectId, ref: "Client" },
     grade: String,
-    workemail: String,
-    fulltime: Boolean,
+    workemail: { type: String, default: "test@test.com" },
+    fulltime: { type: Boolean, default: true },
     skills: [{ type: mongoose.Schema.Types.ObjectId, ref: "Skill" }],
     location: {
       type: LocationSchema,

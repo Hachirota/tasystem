@@ -15,8 +15,8 @@ connectDB();
 const app = express();
 
 // Add Request Body parsers
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false, limit: "10mb" }));
+app.use(express.json({ limit: "10mb" }));
 
 // Add CORS middleware
 app.use(cors());
@@ -34,6 +34,8 @@ app.use("/applicant", require("./routes/applicant"));
 app.use("/client", require("./routes/client"));
 app.use("/skills", require("./routes/skills"));
 app.use("/user", require("./routes/user"));
+app.use("/staff", require("./routes/staff"));
+app.use("/rating", require("./routes/rating"));
 
 // Start server
 app.listen(PORT, () => {
