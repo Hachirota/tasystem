@@ -29,6 +29,15 @@ export class ApiRequestService {
     return this.http.get<any>(this.URI + '/skills');
   }
 
+  getRequests() {
+    return this.http.get<any>(this.URI + '/client/request');
+  }
+
+  getRequest(id: String) {
+    id = id.trim();
+    return this.http.get<any>(this.URI + '/client/request/' + id);
+  }
+
   getApplicants() {
     return this.http.get<[Applicant]>(this.URI + '/applicant');
   }
