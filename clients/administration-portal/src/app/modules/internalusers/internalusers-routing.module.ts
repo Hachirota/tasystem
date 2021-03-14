@@ -7,6 +7,7 @@ import { InternalSplashComponent } from './internal-splash/internal-splash.compo
 import { InternalusersComponent } from './internalusers.component';
 import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
+import { RequestViewComponent } from './request-view/request-view.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
         path: 'applicants/applicant/:id',
         component: ApplicantDetailComponent,
       },
-      { path: 'requests/requestdetail', component: RequestDetailComponent },
+      { path: 'requests', component: RequestViewComponent },
+      { path: 'requests/request/:id', component: RequestDetailComponent },
       {
         path: 'portalusers/createuser',
         component: RegisterPortalUserComponent,
