@@ -29,7 +29,20 @@
         </li>
       </ul>
     </mat-tab>
-    <mat-tab label="Employment Information">Content 2</mat-tab>
-    <mat-tab label="Assignment Information">Content 3</mat-tab>
+    <mat-tab label="Employment Information">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Employer: {{ applicant?.employer.name }}
+        </li>
+        <li class="list-group-item">Grade: {{ applicant?.grade }}</li>
+        <li class="list-group-item">Work E-Mail: {{ applicant?.workemail }}</li>
+        <li class="list-group-item">
+          Full-time?: {{ applicant?.fulltime == true ? "Yes" : "No" }}
+        </li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Assignment Information" [disabled]="true"
+      >Content 3</mat-tab
+    >
   </mat-tab-group>
 </div>

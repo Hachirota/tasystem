@@ -25,7 +25,6 @@ export class ApplicantViewComponent implements OnInit {
     'viewdetail',
   ];
   dataSource: MatTableDataSource<any>;
-  applicantArray = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -41,7 +40,6 @@ export class ApplicantViewComponent implements OnInit {
       this.dataSource = new MatTableDataSource(applicants);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.applicantArray.push(applicants);
       // Override filter predicate to allow nested object filtering
       this.dataSource.filterPredicate = (data: any, filter) => {
         const dataStr = JSON.stringify(data).toLowerCase();

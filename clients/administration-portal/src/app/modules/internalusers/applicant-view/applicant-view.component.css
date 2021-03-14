@@ -5,6 +5,10 @@ table {
   table-layout: auto;
 }
 
+.card {
+  width: 100rem;
+}
+
 .mat-form-field {
   font-size: 14px;
   width: 100%;

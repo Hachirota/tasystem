@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { ActivatedRoute } from '@angular/router';
+import { ApiRequestService } from 'src/app/api-request.service';
 
 @Component({
   selector: 'app-request-detail',
@@ -6,52 +11,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-detail.component.css'],
 })
 export class RequestDetailComponent implements OnInit {
-  request = {
-    graderequired: 'Executive Officer',
-    skillsrequested: [
-      {
-        skill: 'General Administration',
-        required: true,
-      },
-      {
-        skill: 'Customer Service',
-        required: false,
-      },
-    ],
-    fulltime: true,
-    numberrequired: 2,
-    requester: {
-      firstname: 'Carl',
-      surname: 'Boyle',
-      client: 'Health Service Executive',
-    },
-  };
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  ratings = [
-    {
-      ppsnumber: '1234567W',
-      firstname: 'Jane',
-      surname: "O'Neill",
-      distance: 13.124,
-      skillfit: 1,
-    },
-    {
-      ppsnumber: '5667342T',
-      firstname: 'Mark',
-      surname: 'Smith',
-      distance: 8.243,
-      skillfit: 0.91,
-    },
-    {
-      ppsnumber: '1234567W',
-      firstname: 'Tony',
-      surname: 'McCarthy',
-      distance: 5.251,
-      skillfit: 0.09,
-    },
+  ratings: MatTableDataSource<any>;
+  requestId: String;
+  request: any;
+
+  displayedColumns: string[] = [
+    'ppsnumber',
+    'firstname',
+    'surname',
+    'distance',
+    'skillfit',
+    'viewdetail',
   ];
 
-  constructor() {}
+  constructor(private route: ActivatedRoute, private api: ApiRequestService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getRequestInfo();
+  }
+
+  getRequestInfo() {
+    this.route.params.subscribe((params) => {
+      this.requestId = params.id;
+    });
+
+    this.api.getRequest(this.requestId).subscribe((request) => {
+      this.request = request;
+    });
+
+    this.api.getRequestRatings(this.requestId).subscribe((ratings) => {
+      this.ratings = new MatTableDataSource(ratings);
+      this.ratings.paginator = this.paginator;
+      this.ratings.sort = this.sort;
+    });
+  }
 }
