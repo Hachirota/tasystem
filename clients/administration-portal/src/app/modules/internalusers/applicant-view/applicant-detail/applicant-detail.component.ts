@@ -16,6 +16,7 @@ export class ApplicantDetailComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = [
+    'requestid',
     'firstname',
     'surname',
     'client',
@@ -49,6 +50,12 @@ export class ApplicantDetailComponent implements OnInit {
       this.ratings.sort = this.sort;
     });
   }
-}
 
-// Requester Name, Client, Distance, SkillFit %, View Request
+  validate() {
+    this.apiService
+      .updateApplicant(this.id, { status: 'Validated' })
+      .subscribe((applicant) => {
+        this.applicant = applicant;
+      });
+  }
+}

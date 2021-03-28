@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { ApiRequestService } from 'src/app/api-request.service';
 
@@ -11,10 +10,13 @@ import { ApiRequestService } from 'src/app/api-request.service';
   styleUrls: ['./request-detail.component.css'],
 })
 export class RequestDetailComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('validatedPaginator', { static: true })
+  validatedPaginator: MatPaginator;
+  @ViewChild('unvalidatedPaginator', { static: true })
+  unvalidatedPaginator: MatPaginator;
 
-  ratings: MatTableDataSource<any>;
+  validatedRatings: MatTableDataSource<any>;
+  unvalidatedRatings: MatTableDataSource<any>;
   requestId: String;
   request: any;
 
@@ -43,9 +45,15 @@ export class RequestDetailComponent implements OnInit {
     });
 
     this.api.getRequestRatings(this.requestId).subscribe((ratings) => {
-      this.ratings = new MatTableDataSource(ratings);
-      this.ratings.paginator = this.paginator;
-      this.ratings.sort = this.sort;
+      this.validatedRatings = new MatTableDataSource(
+        ratings.validatedApplicants
+      );
+      this.validatedRatings.paginator = this.validatedPaginator;
+
+      this.unvalidatedRatings = new MatTableDataSource(
+        ratings.unvalidatedApplicants
+      );
+      this.unvalidatedRatings.paginator = this.unvalidatedPaginator;
     });
   }
 }

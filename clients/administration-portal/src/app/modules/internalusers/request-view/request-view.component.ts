@@ -11,6 +11,7 @@ import { ApiRequestService } from 'src/app/api-request.service';
 })
 export class RequestViewComponent implements OnInit {
   displayedColumns: string[] = [
+    'requestid',
     'client',
     'requesterfirstname',
     'requstersurname',
@@ -33,7 +34,6 @@ export class RequestViewComponent implements OnInit {
 
   getRequests() {
     this.api.getRequests().subscribe((requests) => {
-      console.log(requests);
       this.requests = new MatTableDataSource(requests);
       this.requests.paginator = this.paginator;
       this.requests.sort = this.sort;

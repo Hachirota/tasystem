@@ -12,6 +12,12 @@
       />
     </mat-form-field>
     <table mat-table [dataSource]="requests" matSort>
+      <!-- Request ID Column -->
+      <ng-container matColumnDef="requestid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Request ID</th>
+        <td mat-cell *matCellDef="let row">Request-{{ row.requestID }}</td>
+      </ng-container>
+
       <!-- CLient Column -->
       <ng-container matColumnDef="client">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Client</th>

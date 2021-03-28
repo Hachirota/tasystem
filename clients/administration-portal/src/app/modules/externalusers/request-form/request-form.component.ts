@@ -33,7 +33,7 @@ export class RequestFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private apiService: ApiRequestService) {
     this.requestForm = this.fb.group({
-      grade: '',
+      graderequired: '',
       numberrequired: '',
       fulltime: '',
       skillsrequested: this.fb.array([this.createSkill()]),
