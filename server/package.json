@@ -11,7 +11,7 @@
   "author": "C Boyle",
   "license": "ISC",
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.1.13",
+    "@googlemaps/google-maps-services-js": "^3.1.16",
     "@turf/turf": "^5.1.6",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
+    "mongoose-sequence": "^5.3.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6"
   },
