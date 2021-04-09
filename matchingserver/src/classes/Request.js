@@ -6,6 +6,7 @@ class Request {
   assignedApplicants = [];
   constructor(requestObj) {
     this.id = requestObj.id;
+    this.requestId = requestObj.requestId;
     this.numberRequired = requestObj.numberRequired;
     this.preferenceList = requestObj.prefs;
     this.originalPrefs = this.preferenceList.slice();

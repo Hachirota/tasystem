@@ -15,8 +15,11 @@ class MatchingPrep {
         .populate({
           path: "applicant",
         })
-        .then((documents) => {
-          documents.forEach((document) => this.ratingsArr.push(document));
+        .then((ratings) => {
+          let availableRatings = ratings.filter(
+            (rating) => rating.applicant.status == "Validated"
+          );
+          availableRatings.forEach((rating) => this.ratingsArr.push(rating));
         });
     }
 
@@ -37,6 +40,7 @@ class MatchingPrep {
   requestGen(request) {
     let result = {};
     result.id = request._id.toString();
+    result.requestId = request.requestID;
     result.numberRequired = request.numberrequired;
     result.prefs = [];
     let reqRatings = this.ratingsArr
@@ -51,7 +55,9 @@ class MatchingPrep {
     reqRatings.forEach((rating) =>
       result.prefs.push(rating.applicant._id.toString())
     );
-    this.requestOutput.push(result);
+    if (result.prefs.length > 0) {
+      this.requestOutput.push(result);
+    }
   }
 
   applicantGen(applicant) {

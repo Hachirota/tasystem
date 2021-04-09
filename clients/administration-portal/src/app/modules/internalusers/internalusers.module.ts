@@ -16,6 +16,7 @@ import { RequestViewComponent } from './request-view/request-view.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 import { ApplicantDetailComponent } from './applicant-view/applicant-detail/applicant-detail.component';
 import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
+import { MatchingViewComponent } from './matching-view/matching-view.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RegisterPortalUserComponent } from './register-portal-user/register-por
     RequestDetailComponent,
     ApplicantDetailComponent,
     RegisterPortalUserComponent,
+    MatchingViewComponent,
   ],
   imports: [
     CommonModule,

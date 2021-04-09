@@ -17,6 +17,10 @@ export class ApiRequestService {
 
   constructor(private http: HttpClient) {}
 
+  getMatching() {
+    return this.http.get<any>(this.URI + '/client/matching');
+  }
+
   getEmployers() {
     return this.http.get<any>(this.URI + '/client/providers');
   }
@@ -49,7 +53,7 @@ export class ApiRequestService {
 
   getRequestRatings(id: String) {
     let trimmedId = id.trim();
-    return this.http.get<[any]>(this.URI + '/rating/request/' + trimmedId);
+    return this.http.get<any>(this.URI + '/rating/request/' + trimmedId);
   }
 
   getApplicantRatings(id: String) {

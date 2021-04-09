@@ -4,19 +4,6 @@ const Applicant = require("../classes/Applicant");
 const express = require("express");
 const router = express.Router();
 
-// let applicantsInput = [
-//   { id: "A", prefs: ["C"] },
-//   { id: "S", prefs: ["C", "M"] },
-//   { id: "D", prefs: ["C", "M", "G"] },
-//   { id: "L", prefs: ["M", "C", "G"] },
-//   { id: "J", prefs: ["C", "G", "M"] },
-// ];
-// let requestsInput = [
-//   { id: "M", numberRequired: 2, prefs: ["D", "L", "S", "J"] },
-//   { id: "C", numberRequired: 2, prefs: ["D", "A", "S", "L", "J"] },
-//   { id: "G", numberRequired: 2, prefs: ["D", "J", "L"] },
-// ];
-
 // @desc Route for matching algorithm - returns JSON with matching results
 // @route POST /matching
 router.post("/", (req, res) => {
@@ -63,7 +50,7 @@ router.post("/", (req, res) => {
     delete request.assignedApplicants;
     delete request.preferenceList;
   });
-  return res.status(200).json(output);
+  res.status(200).json(output);
 });
 
 module.exports = router;

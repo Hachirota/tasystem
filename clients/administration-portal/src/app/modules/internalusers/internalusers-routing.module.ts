@@ -5,6 +5,7 @@ import { ApplicantViewComponent } from './applicant-view/applicant-view.componen
 import { InternalSplashComponent } from './internal-splash/internal-splash.component';
 
 import { InternalusersComponent } from './internalusers.component';
+import { MatchingViewComponent } from './matching-view/matching-view.component';
 import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 import { RequestViewComponent } from './request-view/request-view.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
       },
       { path: 'requests', component: RequestViewComponent },
       { path: 'requests/request/:id', component: RequestDetailComponent },
+      { path: 'requests/match', component: MatchingViewComponent },
       {
         path: 'portalusers/createuser',
         component: RegisterPortalUserComponent,

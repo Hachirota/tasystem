@@ -21,6 +21,7 @@ const ApplicantSchema = new mongoose.Schema(
       type: LocationSchema,
     },
     status: { type: String, default: "Unvalidated" },
+    assignment: { type: mongoose.Schema.Types.ObjectId, ref: "Request" },
   },
   { timestamps: true }
 );

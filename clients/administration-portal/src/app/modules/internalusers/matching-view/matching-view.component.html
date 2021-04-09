@@ -1,0 +1,157 @@
+<ng-container *ngIf="openRequests == undefined">
+  <b>No Open Requests</b>
+</ng-container>
+
+<ng-container>
+  <div class="card mt-3">
+    <div class="card-header"><b>Open Requests</b></div>
+    <div class="card-body mt3">
+      <div class="alert alert-danger" *ngIf="errors?.length > 0">
+        <p *ngFor="let error of errors">
+          {{ error }}
+        </p>
+      </div>
+      <table mat-table [dataSource]="openRequests">
+        <!-- Request ID Column -->
+        <ng-container matColumnDef="requestid">
+          <th mat-header-cell *matHeaderCellDef>Request ID</th>
+          <td mat-cell *matCellDef="let row">Request-{{ row.requestID }}</td>
+        </ng-container>
+
+        <!-- CLient Column -->
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>Client</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.requester.client.name }}
+          </td>
+        </ng-container>
+
+        <!--  Requester First Name Column -->
+        <ng-container matColumnDef="requesterfirstname">
+          <th mat-header-cell *matHeaderCellDef>Requester First Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.requester.firstname }}</td>
+        </ng-container>
+
+        <!-- Requester Surname Column -->
+        <ng-container matColumnDef="requstersurname">
+          <th mat-header-cell *matHeaderCellDef>Requester Surname</th>
+          <td mat-cell *matCellDef="let row">{{ row.requester.surname }}</td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.status }}
+          </td>
+        </ng-container>
+
+        <!-- Grade Required Column -->
+        <ng-container matColumnDef="grade">
+          <th mat-header-cell *matHeaderCellDef>Grade Requested</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.graderequired }}
+          </td>
+        </ng-container>
+
+        <!-- Number Required Column -->
+        <ng-container matColumnDef="numberrequired">
+          <th mat-header-cell *matHeaderCellDef># Requested</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row?.numberrequired }}
+          </td>
+        </ng-container>
+
+        <!-- Number Assigned Column -->
+        <ng-container matColumnDef="numberassigned">
+          <th mat-header-cell *matHeaderCellDef># Assigned</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.assigned.length }}
+          </td>
+        </ng-container>
+
+        <!-- Btn Column -->
+        <ng-container matColumnDef="viewdetail">
+          <th mat-header-cell *matHeaderCellDef>View Detail</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              type="button"
+              routerLink="/admin/requests/request/{{ row._id }}"
+            >
+              View Details
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="openRequestsDisplayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: openRequestsDisplayedColumns"
+        ></tr>
+      </table>
+      <button
+        type="button"
+        class="btn btn-danger mt-2"
+        *ngIf="matchingResult == undefined"
+        (click)="match()"
+      >
+        Match
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="matchingResult !== undefined">
+  <div class="card mt-3">
+    <div class="card-header"><b>Matching Results</b></div>
+    <div class="card-body mt3">
+      <table mat-table [dataSource]="matchingResult">
+        <!-- Request ID Column -->
+        <ng-container matColumnDef="requestid">
+          <th mat-header-cell *matHeaderCellDef>Request ID</th>
+          <td mat-cell *matCellDef="let row">Request-{{ row.requestId }}</td>
+        </ng-container>
+
+        <!-- Number Required Column -->
+        <ng-container matColumnDef="numberrequired">
+          <th mat-header-cell *matHeaderCellDef># Requested</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row?.numberRequired }}
+          </td>
+        </ng-container>
+
+        <!-- Number Assigned Column -->
+        <ng-container matColumnDef="numbermatched">
+          <th mat-header-cell *matHeaderCellDef># Matched</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row?.assignedApplicantIDs.length }}
+          </td>
+        </ng-container>
+
+        <!-- Btn Column -->
+        <ng-container matColumnDef="viewdetail">
+          <th mat-header-cell *matHeaderCellDef>View Detail</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+              class="btn btn-outline-secondary btn-sm"
+              type="button"
+              routerLink="/admin/requests/request/{{ row.id }}"
+            >
+              View Details
+            </button>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="matchingResultsDisplayedColumns"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: matchingResultsDisplayedColumns"
+        ></tr>
+      </table>
+    </div>
+  </div>
+</ng-container>
