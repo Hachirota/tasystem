@@ -29,7 +29,7 @@
         </li>
       </ul>
     </mat-tab>
-    <mat-tab label="Employment Information">
+    <mat-tab label="Employment and Skills Information">
       <ul class="list-group list-group-flush">
         <li class="list-group-item">
           Employer: {{ applicant?.employer.name }}
@@ -38,6 +38,13 @@
         <li class="list-group-item">Work E-Mail: {{ applicant?.workemail }}</li>
         <li class="list-group-item">
           Full-time?: {{ applicant?.fulltime == true ? "Yes" : "No" }}
+        </li>
+        <li></li>
+      </ul>
+      <h2 class="ml-3">Skills</h2>
+      <ul>
+        <li *ngFor="let skill of applicant?.skills">
+          {{ skill.name }}
         </li>
       </ul>
     </mat-tab>
