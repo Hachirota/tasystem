@@ -220,8 +220,17 @@ router.get("/request/:id", async (req, res) => {
   try {
     const data = await RequestModel.findById(req.params.id)
       .populate({ path: "requester", populate: { path: "client" } })
-      .populate({ path: "skillsrequested.skill" });
-    console.log(data.availableCount);
+      .populate({ path: "skillsrequested.skill" })
+      .populate({
+        path: "assigned",
+        populate: [
+          {
+            path: "employer",
+          },
+          { path: "skills", select: "name" },
+        ],
+      });
+
     res.status(200).send(JSON.stringify(data));
   } catch (error) {
     console.error(error);

@@ -165,6 +165,47 @@
         [pageSizeOptions]="[5, 10, 25, 100]"
       ></mat-paginator>
     </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
+    <mat-tab label="Assigned Applicants">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let applicant of request?.assigned">
+          <mat-expansion-panel-header class="right-aligned-header">
+            <mat-panel-title>
+              {{ applicant.firstname }} {{ applicant.surname }}
+            </mat-panel-title>
+            <mat-panel-description>
+              Status:{{ applicant.status }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul>
+            <li>Email:{{ applicant.homeemail }}</li>
+            <li>Mobile:{{ applicant.mobile }}</li>
+            <li>Employer: {{ applicant?.employer.name }}</li>
+            <li>Grade: {{ applicant?.grade }}</li>
+          </ul>
+          <b>Skills</b>
+          <ul>
+            <li *ngFor="let skill of applicant.skills">
+              {{ skill.name }}
+            </li>
+          </ul>
+          <ng-container *ngIf="applicant.status == 'Assigned'">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="updateApplicantStatus(applicant._id, true)"
+            >
+              Commenced Assignment
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger ml-3"
+              (click)="updateApplicantStatus(applicant._id, false)"
+            >
+              Refused Assignment
+            </button>
+          </ng-container>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
   </mat-tab-group>
 </div>

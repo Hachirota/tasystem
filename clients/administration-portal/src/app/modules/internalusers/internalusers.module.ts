@@ -17,6 +17,7 @@ import { RequestDetailComponent } from './request-view/request-detail/request-de
 import { ApplicantDetailComponent } from './applicant-view/applicant-detail/applicant-detail.component';
 import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 import { MatchingViewComponent } from './matching-view/matching-view.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatchingViewComponent } from './matching-view/matching-view.component';
     MatInputModule,
     MatTabsModule,
     ReactiveFormsModule,
+    MatExpansionModule,
   ],
 })
 export class InternalusersModule {}
