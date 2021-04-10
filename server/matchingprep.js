@@ -1,14 +1,18 @@
+// Module to convert the ratings stored into the database into ordered preference lists for each available request and applicant.
+// This is to allow for the ratings to be performed in advance of the matching, and then used to create preference lists as required
+
 const Rating = require("./models/Rating");
 const Applicant = require("./models/Applicant");
-
 class MatchingPrep {
   constructor() {
+    // Applicant ID is stored as a set to ensure ID is recorded only once in cases where the applicant is wanted by multiple requests
     this.ratingsArr = [];
     this.applicantsArr = [];
     this.appIDs = new Set();
     this.requestOutput = [];
     this.applicantOutput = [];
   }
+  // Function to query the database for the ratings of all open requests, which it then filters down to the ratings of available applicants.
   async ratingQuery(requests) {
     for (const request of requests) {
       await Rating.find({ request: request._id })
@@ -41,7 +45,8 @@ class MatchingPrep {
     let result = {};
     result.id = request._id.toString();
     result.requestId = request.requestID;
-    result.numberRequired = request.numberrequired;
+    result.numberRequired =
+      request.numberrequired - (request.assigned.length || 0);
     result.prefs = [];
     let reqRatings = this.ratingsArr
       .filter((rating) => rating.request.toString() == result.id)

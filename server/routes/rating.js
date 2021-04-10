@@ -11,9 +11,10 @@ router.get("/request/:id", async (req, res) => {
       path: "applicant",
       select: "ppsnumber firstname surname status",
     });
-
+    // Break ties in sort w applicant distance
     ratings.sort((a, b) => b.matchFit - a.matchFit || a.distance - b.distance);
 
+    // Separate ratings into Validated & Unvalidated - Only return applicants with these two statuses
     validatedApplicants = ratings.filter((rating) => {
       return rating.applicant.status == "Validated";
     });
