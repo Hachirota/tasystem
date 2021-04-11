@@ -144,19 +144,6 @@ router.post("/clientcontact", async (req, res) => {
   }
 });
 
-// @desc Retrives a client contact from db - CURRENTLY RETRIEVES A RANDOM ONE - NEED TO UPDATE REQUEST FORM
-// @route GET /client/clientcontact
-router.get("/clientcontact", async (req, res) => {
-  try {
-    const data = await ClientContact.findOne()
-      .populate({ path: "client", select: "name" })
-      .lean();
-    res.status(200).send(data);
-  } catch (error) {
-    console.error(error);
-  }
-});
-
 // @desc Adds a request to the database and then generates ratings for it
 // @route POST /client/request
 router.post("/request", async (req, res) => {
@@ -214,6 +201,33 @@ router.get("/request", async (req, res) => {
   }
 });
 
+// @desc Get All Requests for a client - For External Module
+// @route GET /client/requests:/id
+router.get("/requests/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    data = await RequestModel.aggregate([
+      {
+        $lookup: {
+          from: "clientcontacts",
+          localField: "requester",
+          foreignField: "_id",
+          as: "requester",
+        },
+      },
+      {
+        $match: {
+          "requester.client": mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+    ]);
+    console.log(data[0].requester);
+    res.status(200).send(data);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // @desc Get A Request via ID
 // @route GET /client/request/:id
 router.get("/request/:id", async (req, res) => {
@@ -232,6 +246,19 @@ router.get("/request/:id", async (req, res) => {
       });
 
     res.status(200).send(JSON.stringify(data));
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// @desc Retrives a client contact from db
+// @route GET /client/clientcontact/:id
+router.get("/clientcontact/:id", async (req, res) => {
+  try {
+    const data = await ClientContact.findById(req.params.id)
+      .populate({ path: "client", select: "name" })
+      .lean();
+    res.status(200).send(data);
   } catch (error) {
     console.error(error);
   }

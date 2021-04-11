@@ -42,6 +42,5 @@ export class LoginpageComponent implements OnInit {
         this.errors.push(errorResponse.error.error);
       }
     );
-    console.log(this.loginForm.value);
   }
 }

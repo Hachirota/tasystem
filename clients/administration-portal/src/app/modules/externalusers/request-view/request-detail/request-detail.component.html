@@ -1,0 +1,93 @@
+<div class="card mt-3">
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+    <mat-tab label="Request Information">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          Request ID: Request-{{ request?.requestID }}
+        </li>
+        <li class="list-group-item">Status: {{ request?.status }}</li>
+        <li class="list-group-item">
+          Requester: {{ request?.requester.firstname }}
+          {{ request?.requester.surname }}
+        </li>
+        <li class="list-group-item">
+          Requesting Organisation: {{ request?.requester.client.name }}
+        </li>
+        <li class="list-group-item">
+          Number Requested: {{ request?.numberrequired }}
+        </li>
+        <li class="list-group-item">
+          Number Assigned: {{ request?.assigned.length }}
+        </li>
+        <li class="list-group-item">Grade: {{ request?.graderequired }}</li>
+        <li class="list-group-item">
+          Work Pattern:
+          {{ request?.fulltime == true ? "Full-Time" : "Part-Time" }}
+        </li>
+      </ul>
+      <h2 class="m-3">Skills Requested</h2>
+      <div class="container">
+        <div class="table">
+          <table class="table">
+            <thead>
+              <th>Skill</th>
+              <th>Required?</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of request?.skillsrequested">
+                <td>{{ skill.skill.name }}</td>
+                <td>{{ skill.required == true ? "Yes" : "No" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab
+      label="Assigned Applicants"
+      [disabled]="request?.assigned.length == 0"
+    >
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let applicant of request?.assigned">
+          <mat-expansion-panel-header class="right-aligned-header">
+            <mat-panel-title>
+              {{ applicant.firstname }} {{ applicant.surname }}
+            </mat-panel-title>
+            <mat-panel-description>
+              Status:{{ applicant.status }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ul>
+            <li>Email:{{ applicant.homeemail }}</li>
+            <li>Mobile:{{ applicant.mobile }}</li>
+            <li>Employer: {{ applicant?.employer.name }}</li>
+            <li>Grade: {{ applicant?.grade }}</li>
+          </ul>
+          <b>Skills</b>
+          <ul>
+            <li *ngFor="let skill of applicant.skills">
+              {{ skill.name }}
+            </li>
+          </ul>
+          <ng-container *ngIf="applicant.status == 'Assigned'">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              (click)="updateApplicantStatus(applicant._id, true)"
+            >
+              Commenced Assignment
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger ml-3"
+              (click)="updateApplicantStatus(applicant._id, false)"
+            >
+              Refused Assignment
+            </button>
+          </ng-container>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
+  </mat-tab-group>
+</div>

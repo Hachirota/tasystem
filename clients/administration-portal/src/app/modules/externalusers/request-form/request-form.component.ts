@@ -7,6 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ApiRequestService } from 'src/app/api-request.service';
+import { AuthenticationService } from 'src/app/authentication.service';
 import { ClientContact } from 'src/app/shared/models/ClientContact';
 
 @Component({
@@ -31,7 +32,11 @@ export class RequestFormComponent implements OnInit {
 
   availableSkills = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiRequestService) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiRequestService,
+    private authService: AuthenticationService
+  ) {
     this.requestForm = this.fb.group({
       graderequired: '',
       numberrequired: '',
@@ -57,7 +62,7 @@ export class RequestFormComponent implements OnInit {
 
   getRequester(): void {
     this.apiService
-      .getClientContact()
+      .getClientContact(this.authService.getClientId())
       .subscribe((contact) => (this.requester = contact));
   }
 

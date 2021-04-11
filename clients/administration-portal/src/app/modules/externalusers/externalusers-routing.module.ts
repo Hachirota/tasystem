@@ -6,6 +6,7 @@ import { RequestFormComponent } from './request-form/request-form.component';
 import { RequestViewComponent } from './request-view/request-view.component';
 import { StaffDetailComponent } from './staff-view/staff-detail/staff-detail.component';
 import { StaffViewComponent } from './staff-view/staff-view.component';
+import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'addrequest', component: RequestFormComponent },
       { path: 'viewrequests', component: RequestViewComponent },
+      { path: 'viewrequests/request/:id', component: RequestDetailComponent },
       { path: 'staff', component: StaffViewComponent },
       { path: 'staff/:id', component: StaffDetailComponent },
     ],

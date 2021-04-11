@@ -67,4 +67,12 @@ export class AuthenticationService {
   getName(): string {
     return this.decodedtoken.firstname;
   }
+
+  getClientId(): string {
+    return this.decodedtoken.dbID;
+  }
+
+  getClientName(): string {
+    return this.decodedtoken.client;
+  }
 }

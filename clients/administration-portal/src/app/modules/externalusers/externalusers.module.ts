@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
+import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     RequestViewComponent,
     StaffViewComponent,
     StaffDetailComponent,
+    RequestDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -34,6 +37,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatSortModule,
     MatTabsModule,
+    MatExpansionModule,
   ],
 })
 export class ExternalusersModule {}

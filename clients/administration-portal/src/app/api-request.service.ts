@@ -71,8 +71,15 @@ export class ApiRequestService {
     return this.http.put<Applicant>(this.URI + '/applicant/' + id, body);
   }
 
-  getClientContact() {
-    return this.http.get<ClientContact>(this.URI + '/client/clientcontact');
+  getClientContact(id: String) {
+    return this.http.get<ClientContact>(
+      this.URI + '/client/clientcontact/' + id
+    );
+  }
+
+  getClientRequests(id: String) {
+    id = id.trim();
+    return this.http.get<any>(this.URI + '/client/requests/' + id);
   }
 
   postRequest(request) {

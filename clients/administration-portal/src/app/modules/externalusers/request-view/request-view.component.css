@@ -1,0 +1,24 @@
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 50px 0;
+  table-layout: auto;
+}
+
+.card {
+  width: 100rem;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+th,
+td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 5px;
+}
