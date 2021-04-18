@@ -11,6 +11,8 @@ import { AuthenticationService } from 'src/app/authentication.service';
 export class RegisterPortalUserComponent implements OnInit {
   portalForm: FormGroup;
   clients: [any];
+  errors: any = [];
+  registered: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +41,13 @@ export class RegisterPortalUserComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.auth.registerPortalUser(this.portalForm.value).subscribe();
+    this.auth.registerPortalUser(this.portalForm.value).subscribe(
+      () => {
+        this.registered = true;
+      },
+      (errorResponse) => {
+        this.errors.push(errorResponse.error.error);
+      }
+    );
   }
 }

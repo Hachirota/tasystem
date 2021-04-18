@@ -29,22 +29,26 @@ router.post("/", async (req, res) => {
       params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
     });
 
-    userBody.location = {
-      googleplaceid: gBody.data.results[0].place_id,
-      geopoint: {
-        type: "Point",
-        coordinates: [
-          gBody.data.results[0].geometry.location.lng,
-          gBody.data.results[0].geometry.location.lat,
-        ],
-      },
-    };
+    if (typeof gBody.data.results[0] !== "undefined") {
+      userBody.location = {
+        googleplaceid: gBody.data.results[0].place_id,
+        geopoint: {
+          type: "Point",
+          coordinates: [
+            gBody.data.results[0].geometry.location.lng,
+            gBody.data.results[0].geometry.location.lat,
+          ],
+        },
+      };
 
-    await ClientContact.create(userBody).then(
-      (document) => (userBody.dbID = document._id)
-    );
-    await User.create(userBody);
-    res.status(200).send();
+      await ClientContact.create(userBody).then(
+        (document) => (userBody.dbID = document._id)
+      );
+      await User.create(userBody);
+      res.status(200).send();
+    } else {
+      res.status(400).json({ error: "Unable to geocode address" });
+    }
   } catch (error) {
     console.error(error);
   }

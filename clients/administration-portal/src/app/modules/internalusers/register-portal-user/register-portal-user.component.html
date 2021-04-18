@@ -1,4 +1,11 @@
-<form [formGroup]="portalForm" (ngSubmit)="submitForm()">
+<div class="alert alert-success" *ngIf="registered">User Registered!</div>
+
+<div class="alert alert-danger" *ngIf="errors?.length > 0">
+  <p *ngFor="let error of errors">
+    {{ error }}
+  </p>
+</div>
+<form *ngIf="!registered" [formGroup]="portalForm" (ngSubmit)="submitForm()">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label>First Name:</label>
