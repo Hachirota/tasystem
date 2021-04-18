@@ -56,4 +56,13 @@ export class RequestDetailComponent implements OnInit {
       this.unvalidatedRatings.paginator = this.unvalidatedPaginator;
     });
   }
+
+  updateApplicantStatus(id: String, accepted: Boolean) {
+    let status =
+      accepted == true ? 'Assignment Accepted' : 'Assignment Refused';
+    this.api.updateApplicant(id, { status: status }).subscribe();
+    this.api.getRequest(this.requestId).subscribe((request) => {
+      this.request = request;
+    });
+  }
 }

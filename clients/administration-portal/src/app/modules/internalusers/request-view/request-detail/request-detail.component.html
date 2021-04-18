@@ -16,6 +16,9 @@
         <li class="list-group-item">
           Number Requested: {{ request?.numberrequired }}
         </li>
+        <li class="list-group-item">
+          Number Assigned: {{ request?.assigned.length }}
+        </li>
         <li class="list-group-item">Grade: {{ request?.graderequired }}</li>
         <li class="list-group-item">
           Work Pattern:
@@ -165,7 +168,10 @@
         [pageSizeOptions]="[5, 10, 25, 100]"
       ></mat-paginator>
     </mat-tab>
-    <mat-tab label="Assigned Applicants">
+    <mat-tab
+      label="Assigned Applicants"
+      [disabled]="request?.assigned.length == 0"
+    >
       <mat-accordion>
         <mat-expansion-panel *ngFor="let applicant of request?.assigned">
           <mat-expansion-panel-header class="right-aligned-header">
