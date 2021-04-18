@@ -34,7 +34,69 @@ function applicantValidatedEmail(name, email, employer) {
     .catch(console.error);
 }
 
-function applicantAssignedEmail() {}
+function applicantAssignedEmail(
+  appfirstname,
+  appsurname,
+  appemail,
+  employeremail,
+  requesterfirstname,
+  requestersurname,
+  requesteradd1,
+  requesteradd2,
+  requestereircode,
+  requestercounty,
+  requesterworkphone,
+  requesteremail,
+  requesterclient
+) {
+  emailoptions.send({
+    template: "applicantassigned",
+    message: {
+      to: appemail,
+      cc: employeremail,
+    },
+    locals: {
+      applicantfirstname: appfirstname,
+      applicantsurname: appsurname,
+      requesterfirstname: requesterfirstname,
+      requestersurname: requestersurname,
+      requesteradd1: requesteradd1,
+      requesteradd2: requesteradd2,
+      requestereircode: requestereircode,
+      requestercounty: requestercounty,
+      requesterworkphone: requesterworkphone,
+      requesteremail: requesteremail,
+      client: requesterclient,
+    },
+  });
+}
+
+function requestAllocationEmail(
+  requesterfirstname,
+  requestersurname,
+  requesteremail,
+  appfirstname,
+  appsurname,
+  appemail,
+  appphone,
+  requestid
+) {
+  emailoptions.send({
+    template: "requestallocation",
+    message: {
+      to: requesteremail,
+    },
+    locals: {
+      requesterfirstname: requesterfirstname,
+      requestersurname: requestersurname,
+      applicantfirstname: appfirstname,
+      applicantsurname: appsurname,
+      applicantemail: appemail,
+      applicantphone: appphone,
+      requestid: requestid,
+    },
+  });
+}
 
 function applicantAcceptedAssignment(
   applicantfirstname,
@@ -60,10 +122,34 @@ function applicantAcceptedAssignment(
     .catch(console.error);
 }
 
-function applicantRefusedAssignment() {}
+function applicantRefusedAssignment(
+  applicantfirstname,
+  applicantsurname,
+  employerfirstname,
+  employeremail,
+  client
+) {
+  emailoptions
+    .send({
+      template: "apprefusedass",
+      message: {
+        to: employeremail,
+      },
+      locals: {
+        applicantfirstname: applicantfirstname,
+        applicantsurname: applicantsurname,
+        employername: employerfirstname,
+        employeremail: employeremail,
+        client: client,
+      },
+    })
+    .catch(console.error);
+}
 
-function employeeAssignedEmail() {}
-
-function requestAllocationEmail() {}
-
-module.exports = { applicantValidatedEmail, applicantAcceptedAssignment };
+module.exports = {
+  applicantValidatedEmail,
+  applicantAcceptedAssignment,
+  applicantRefusedAssignment,
+  applicantAssignedEmail,
+  requestAllocationEmail,
+};

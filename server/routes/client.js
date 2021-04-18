@@ -11,6 +11,7 @@ const Ratings = require("../models/Rating");
 const Applicant = require("../models/Applicant");
 var mongoose = require("mongoose");
 const rater = new Rater();
+const emailservice = require("../emailservice");
 
 // @desc Route to initiate matching process on matching server
 // @route GET /client/matching
@@ -54,11 +55,52 @@ router.get("/matching", async (req, res) => {
                 }
               }
             );
+            // Update applicants and send emails
             applicants.forEach((applicant) => {
-              Applicant.findById(applicant).then((document) => {
+              Applicant.findById(applicant).then(async (document) => {
                 document.status = "Assigned";
                 document.assignment = request.id;
                 document.save();
+                await document
+                  .populate("employer")
+                  .populate({
+                    path: "assignment",
+                    populate: {
+                      path: "requester",
+                      populate: { path: "client" },
+                    },
+                  })
+                  .execPopulate()
+                  .then(
+                    (document) => {
+                      emailservice.applicantAssignedEmail(
+                        document.firstname,
+                        document.surname,
+                        document.homeemail,
+                        document.employer.centralcontactemail,
+                        document.assignment.requester.firstname,
+                        document.assignment.requester.surname,
+                        document.assignment.requester.address1,
+                        document.assignment.requester.address2,
+                        document.assignment.requester.eircode,
+                        document.assignment.requester.county,
+                        document.assignment.requester.workphone,
+                        document.assignment.requester.email,
+                        document.assignment.requester.client.name
+                      );
+                      emailservice.requestAllocationEmail(
+                        document.assignment.requester.firstname,
+                        document.assignment.requester.surname,
+                        document.assignment.requester.email,
+                        document.firstname,
+                        document.surname,
+                        document.homeemail,
+                        document.mobile,
+                        document.assignment.requestID
+                      );
+                    },
+                    (error) => console.error(error)
+                  );
               });
             });
           });

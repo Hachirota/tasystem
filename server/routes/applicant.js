@@ -111,8 +111,15 @@ router.put("/:id", async (req, res) => {
           applicant.employer.centralcontactemail,
           applicant.assignment.requester.client.name
         );
-      } else {
-        console.log(req.body.status);
+      }
+      if (req.body.status == "Assignment Refused") {
+        emailservice.applicantRefusedAssignment(
+          applicant.firstname,
+          applicant.surname,
+          applicant.employer.centralcontactname,
+          applicant.employer.centralcontactemail,
+          applicant.assignment.requester.client.name
+        );
       }
 
       return res.status(200).send(applicant);
