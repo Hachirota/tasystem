@@ -57,7 +57,7 @@ class Rater {
       path: "skills",
     });
 
-    // Find all client contacts within 45km of the applicant (as the crow flies)
+    // Find all client contacts within 45km of the applicant (as the crow flies) - Division is to convert to radians to allow geoquery
     let contacts = await ClientContact.find({
       "location.geopoint": {
         $geoWithin: {
@@ -71,6 +71,7 @@ class Rater {
       let requests = await RequestModel.find({
         requester: contact._id,
         graderequired: applicant.grade,
+        fulltime: applicant.fulltime,
       }).populate({
         path: "requester",
       });
@@ -95,6 +96,7 @@ class Rater {
         },
       },
       grade: request.graderequired,
+      fulltime: request.fulltime,
     }).populate({ path: "skills" });
     matches.forEach((match) => this.genRating(request, match));
   }

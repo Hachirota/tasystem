@@ -26,55 +26,53 @@ router.get("/", async (req, res) => {
   }
 });
 
-// @desc Add applicant(s) to db
+// @desc Add applicant to db
 // @route POST /applicant
-router.post("/", (req, res) => {
-  req.body.forEach(async (applicant) => {
-    try {
-      let appBody = applicant;
+router.post("/", async (req, res) => {
+  try {
+    let appBody = req.body;
 
-      // Prepare address information to send to google geocoding api
-      let address =
-        appBody.address1 +
-        " " +
-        appBody.address2 +
-        " " +
-        appBody.eircode +
-        " " +
-        appBody.county +
-        " " +
-        appBody.country;
+    // Prepare address information to send to google geocoding api
+    let address =
+      appBody.address1 +
+      " " +
+      appBody.address2 +
+      " " +
+      appBody.eircode +
+      " " +
+      appBody.county +
+      " " +
+      appBody.country;
 
-      let encAddress = address.replace(/ /g, "%20");
+    let encAddress = address.replace(/ /g, "%20");
 
-      // Send to google geocoding service
-      let gBody = await gmaps.geocode({
-        params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
+    // Send to google geocoding service
+    let gBody = await gmaps.geocode({
+      params: { address: encAddress, key: process.env.GOOGLE_MAPS_API_KEY },
+    });
+
+    // If geocoding api returned a valid result, insert it into applicant object
+    if (typeof gBody.data.results[0] !== "undefined") {
+      appBody.location = {
+        googleplaceid: gBody.data.results[0].place_id,
+        geopoint: {
+          type: "Point",
+          coordinates: [
+            gBody.data.results[0].geometry.location.lng,
+            gBody.data.results[0].geometry.location.lat,
+          ],
+        },
+      };
+
+      // Insert applicant into database and perform rating process on requests in database
+      await Applicant.create(appBody).then((doc) => {
+        rater.ApplicantToRequestRater(doc._id);
       });
-
-      // If geocoding api returned a valid result, insert it into applicant object
-      if (typeof gBody.data.results[0] !== "undefined") {
-        appBody.location = {
-          googleplaceid: gBody.data.results[0].place_id,
-          geopoint: {
-            type: "Point",
-            coordinates: [
-              gBody.data.results[0].geometry.location.lng,
-              gBody.data.results[0].geometry.location.lat,
-            ],
-          },
-        };
-
-        // Insert applicant into database and perform rating process on requests in database
-        await Applicant.create(appBody).then((doc) => {
-          rater.ApplicantToRequestRater(doc._id);
-        });
-        res.status(200).send();
-      }
-    } catch (error) {
-      //console.error(error)
+      res.status(200).send();
     }
-  });
+  } catch (error) {
+    //console.error(error)
+  }
 });
 
 // @desc Update an applicant
