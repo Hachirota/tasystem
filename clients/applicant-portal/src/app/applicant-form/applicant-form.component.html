@@ -7,7 +7,7 @@
     <Form [formGroup]="applicantForm" (ngSubmit)="onSubmit()">
       <h2>Personal Details</h2>
       <div class="form-group">
-        <label>PPS Number</label>
+        <label>PPS Number</label> <small class="text-muted"> Required </small>
         <input
           class="form-control col-6"
           type="text"
@@ -18,30 +18,59 @@
         *ngIf="ppsnumber.invalid && (ppsnumber.dirty || ppsnumber.touched)"
         class="alert alert-danger"
       >
-        Please enter a PPS Number
+        Please enter a PPS Number.
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label>First Name</label>
+          <label>First Name</label> <small class="text-muted"> Required </small>
           <input class="form-control" type="text" formControlName="firstname" />
         </div>
         <div class="form-group col-md-6">
-          <label>Surname:</label>
+          <label>Surname:</label> <small class="text-muted"> Required </small>
           <input class="form-control" type="text" formControlName="surname" />
         </div>
+        <div
+          *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+          class="alert alert-danger"
+        >
+          Please enter your firstname.
+        </div>
+        <div
+          *ngIf="surname.invalid && (surname.dirty || surname.touched)"
+          class="alert alert-danger"
+        >
+          Please enter your surname.
+        </div>
       </div>
+
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label>Mobile</label>
+          <label>Mobile</label> <small class="text-muted"> Required </small>
           <input class="form-control" type="text" formControlName="mobile" />
         </div>
         <div class="form-group col-md-6">
           <label>Home E-Mail</label>
+          <small class="text-muted"> Required </small>
           <input class="form-control" type="text" formControlName="homeemail" />
         </div>
       </div>
+      <div
+        *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your mobile number.
+      </div>
+      <div
+        *ngIf="homeemail.invalid && (homeemail.dirty || homeemail.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="homeemail.errors.required">
+          Please enter your home e-mail.
+        </div>
+        <div *ngIf="homeemail.errors.email">Please enter a valid e-mail.</div>
+      </div>
       <div class="form-group">
-        <label>Address 1</label>
+        <label>Address 1</label> <small class="text-muted"> Required </small>
         <input type="text" class="form-control" formControlName="address1" />
       </div>
       <div class="form-group">
@@ -50,18 +79,36 @@
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label>Eircode</label>
+          <label>Eircode</label> <small class="text-muted"> Required </small>
           <input type="text" class="form-control" formControlName="eircode" />
         </div>
         <div class="form-group col-md-6">
-          <label>County</label>
+          <label>County</label> <small class="text-muted"> Required </small>
           <input type="text" class="form-control" formControlName="county" />
         </div>
+      </div>
+      <div
+        *ngIf="address1.invalid && (address1.dirty || address1.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your address.
+      </div>
+      <div
+        *ngIf="eircode.invalid && (eircode.dirty || eircode.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your eircode.
+      </div>
+      <div
+        *ngIf="county.invalid && (county.dirty || county.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your county.
       </div>
       <hr />
       <h2>Employment Information</h2>
       <div class="form-group">
-        <label>Employer</label>
+        <label>Employer</label> <small class="text-muted"> Required </small>
         <select class="custom-select" formControlName="employer">
           <option selected>Please select your employer.</option>
           <option *ngFor="let item of employers" [value]="item._id">
@@ -69,45 +116,89 @@
           </option>
         </select>
       </div>
+      <div
+        *ngIf="employer.invalid && (employer.dirty || employer.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your employer.
+      </div>
       <div class="form-group">
-        <label>Grade</label>
+        <label>Grade</label> <small class="text-muted"> Required </small>
         <select class="custom-select" formControlName="grade">
           <option selected>Please select your grade.</option>
           <option *ngFor="let grade of grades">{{ grade }}</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Work E-Mail Address</label>
-        <input type="text" class="form-control" formControlName="workemail" />
+      <div
+        *ngIf="grade.invalid && (grade.dirty || grade.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your grade.
       </div>
       <div class="form-group">
-        <label>Work Pattern</label>
+        <label>Work E-Mail Address</label>
+        <small class="text-muted"> Required </small>
+        <input type="text" class="form-control" formControlName="workemail" />
+      </div>
+      <div
+        *ngIf="workemail.invalid && (workemail.dirty || workemail.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="workemail.errors.required">
+          Please enter your work e-mail.
+        </div>
+        <div *ngIf="workemail.errors.email">Please enter a valid e-mail.</div>
+      </div>
+      <div class="form-group">
+        <label>Work Pattern</label> <small class="text-muted"> Required </small>
         <select class="custom-select" formControlName="fulltime">
           <option value="true" selected>Full-Time</option>
           <option value="false">Part-Time</option>
         </select>
       </div>
-      <hr />
-      <h2>Skills</h2>
-      <div>Please select any number of skills:</div>
-      <div formArrayName="skills">
-        <div
-          class="form-group"
-          *ngFor="let skill of skills.controls; let i = index"
-        >
-          <select [formControlName]="i" class="custom-select">
-            <option selected>Please select a skill</option>
-            <option *ngFor="let skill of availableSkills" [value]="skill._id">
-              {{ skill.name }}
-            </option>
-          </select>
-        </div>
-        <button type="button" class="btn btn-info" (click)="addSkill()">
-          Add another Skill
-        </button>
+      <div
+        *ngIf="fulltime.invalid && (fulltime.dirty || fulltime.touched)"
+        class="alert alert-danger"
+      >
+        Please enter your work pattern.
       </div>
       <hr />
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <h2>Skills</h2>
+      <div>
+        Select any number of skills you feel you are proficient in at a level
+        appropriate to your grade. Please note that any assignment will be made
+        based on the skills that you have declared:
+      </div>
+      <small class="text-muted"> Minimum 1 required </small>
+      <br />
+      <div
+        *ngFor="let skill of availableSkills; let i = index"
+        (change)="onCheckboxChange($event)"
+      >
+        <label>
+          <input type="checkbox" [value]="skill._id" />
+          {{ skill.name }}
+        </label>
+      </div>
+      <div
+        *ngIf="
+          applicantForm.controls['skills'].errors?.required && skillsTouched
+        "
+        class="alert alert-danger"
+      >
+        Please select at least one skill.
+      </div>
+      <hr />
+      <div *ngIf="!applicantForm.valid" class="alert alert-warning">
+        Complete all required fields to submit.
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!applicantForm.valid"
+      >
+        Submit
+      </button>
     </Form>
   </div>
 </div>

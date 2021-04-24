@@ -1,0 +1,26 @@
+<nav class="navbar navbar-light">
+  <a class="navbar-brand" href="#">Temporary Assignments Scheme</a>
+</nav>
+<div class="card">
+  <div class="card-header">Confirmation of Consent</div>
+  <div class="card-body">
+    <p>Welcome to the application form for the Temporary Assignments Scheme.</p>
+    <p>
+      By applying to this scheme, the information you provide in the application
+      form may be shared with your employer and participating agencys in the
+      scheme.
+    </p>
+    <p>
+      Please confirm you consent to this information being shared when required.
+    </p>
+    <p>
+      <label
+        >I consent: <input type="checkbox" (change)="toggleConsent()"
+      /></label>
+    </p>
+    <br />
+    <button class="btn btn-primary" routerLink="register" [disabled]="!consent">
+      Proceed
+    </button>
+  </div>
+</div>
