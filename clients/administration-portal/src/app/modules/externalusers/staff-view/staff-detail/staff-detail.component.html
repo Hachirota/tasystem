@@ -41,8 +41,36 @@
         </li>
       </ul>
     </mat-tab>
-    <mat-tab label="Assignment Information" [disabled]="true"
-      >Content 3</mat-tab
+    <mat-tab
+      label="Assignment Information"
+      [disabled]="applicant?.assignment == undefined"
     >
+      <ng-container *ngIf="applicant?.assignment !== undefined">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Request ID: Request-{{ applicant?.assignment.requestID }}
+          </li>
+          <li class="list-group-item">
+            Name: {{ applicant?.assignment.requester.firstname }}
+            {{ applicant?.assignment.requester.surname }}
+          </li>
+          <li class="list-group-item">
+            Personal E-Mail Address: {{ applicant?.assignment.requester.email }}
+          </li>
+          <li class="list-group-item">
+            Address 1: {{ applicant?.assignment.requester.address1 }}
+          </li>
+          <li class="list-group-item">
+            Address 2: {{ applicant?.assignment.requester.address2 }}
+          </li>
+          <li class="list-group-item">
+            Eircode: {{ applicant?.assignment.requester.eircode }}
+          </li>
+          <li class="list-group-item">
+            County: {{ applicant?.assignment.requester.county }}
+          </li>
+        </ul>
+      </ng-container>
+    </mat-tab>
   </mat-tab-group>
 </div>

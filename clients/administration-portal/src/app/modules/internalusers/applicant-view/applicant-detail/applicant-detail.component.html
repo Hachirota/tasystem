@@ -121,7 +121,7 @@
     </mat-tab>
     <mat-tab
       label="Assignment Information"
-      [disabled]="applicant?.status !== 'Assigned'"
+      [disabled]="applicant?.assignment == undefined"
     >
       <ng-container *ngIf="applicant?.assignment !== undefined">
         <ul class="list-group list-group-flush">
