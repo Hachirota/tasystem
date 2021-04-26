@@ -1,1 +1,46 @@
-<p>internal-splash works!</p>
+<div class="card mt-3">
+  <div class="card-header"><b>Dashboard</b></div>
+  <div class="card-body">
+    <h4 class="card-subtitle mb-2 text-muted">Applicants by Status</h4>
+    <ng-container *ngIf="applicantByStatusLoaded == true">
+      <google-chart
+        [data]="applicantsByStatus"
+        [type]="myType"
+        style="width: 100%"
+      ></google-chart>
+    </ng-container>
+    <hr />
+    <h4 class="card-subtitle mb-2 text-muted">Applicants by Employer</h4>
+    <ng-container *ngIf="applicantByEmployerLoaded == true">
+      <mat-form-field>
+        <mat-select style="width: 500px" [(value)]="selectedEmployer">
+          <mat-option *ngFor="let employer of employers" [value]="employer">{{
+            employer
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <google-chart
+        [data]="ApplicantsByEmployer[selectedEmployer]"
+        [type]="myType"
+        [title]="selectedEmployer"
+        style="width: 100%"
+      ></google-chart>
+    </ng-container>
+    <hr />
+    <h4 class="card-subtitle mb-2 text-muted">Requests by Status</h4>
+    <ng-container>
+      <google-chart [data]="requestsByStatus" [type]="myType"></google-chart>
+    </ng-container>
+    <hr />
+    <h4 class="card-subtitle mb-2 text-muted">
+      Requests by Applicants Requested
+    </h4>
+    <ng-container>
+      <google-chart
+        [data]="requestsByApplicants"
+        [type]="myType"
+      ></google-chart>
+    </ng-container>
+  </div>
+</div>

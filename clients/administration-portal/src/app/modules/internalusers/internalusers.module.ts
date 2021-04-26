@@ -18,6 +18,8 @@ import { ApplicantDetailComponent } from './applicant-view/applicant-detail/appl
 import { RegisterPortalUserComponent } from './register-portal-user/register-portal-user.component';
 import { MatchingViewComponent } from './matching-view/matching-view.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { GoogleChartsModule } from 'angular-google-charts';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatTabsModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    GoogleChartsModule,
+    MatSelectModule,
   ],
 })
 export class InternalusersModule {}

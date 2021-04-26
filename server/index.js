@@ -36,6 +36,7 @@ app.use("/skills", require("./routes/skills"));
 app.use("/user", require("./routes/user"));
 app.use("/staff", require("./routes/staff"));
 app.use("/rating", require("./routes/rating"));
+app.use("/data", require("./routes/data"));
 
 // Start server
 app.listen(PORT, () => {

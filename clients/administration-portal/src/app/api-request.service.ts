@@ -17,6 +17,22 @@ export class ApiRequestService {
 
   constructor(private http: HttpClient) {}
 
+  getApplicantsByStatusAdmin() {
+    return this.http.get<any>(this.URI + '/data/admin/applicantsbystatus');
+  }
+
+  getApplicantsByEmployerAdmin() {
+    return this.http.get<any>(this.URI + '/data/admin/applicantsbyemployer');
+  }
+
+  getRequestsByStatusAdmin() {
+    return this.http.get<any>(this.URI + '/data/admin/requestsbystatus');
+  }
+
+  getRequestsByApplicantsAdmin() {
+    return this.http.get<any>(this.URI + '/data/admin/requestsbyapplicants');
+  }
+
   getMatching() {
     return this.http.get<any>(this.URI + '/client/matching');
   }
