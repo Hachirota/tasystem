@@ -3,13 +3,28 @@
     <nav class="col-xl">
       <div class="sidebar-sticky pt-3">
         <mat-action-list>
-          <button mat-list-item routerLink="/clients/addrequest">
+          <button mat-list-item routerLink="/clients/">Dashboard</button>
+          <button
+            *ngIf="authService.isRequester()"
+            mat-list-item
+            routerLink="/clients/addrequest"
+          >
             Submit Request
           </button>
-          <button mat-list-item routerLink="/clients/viewrequests">
+          <button
+            *ngIf="authService.isRequester()"
+            mat-list-item
+            routerLink="/clients/viewrequests"
+          >
             View Requests
           </button>
-          <button mat-list-item routerLink="/clients/staff">View Staff</button>
+          <button
+            *ngIf="authService.isProvider()"
+            mat-list-item
+            routerLink="/clients/staff"
+          >
+            View Staff
+          </button>
         </mat-action-list>
       </div>
     </nav>

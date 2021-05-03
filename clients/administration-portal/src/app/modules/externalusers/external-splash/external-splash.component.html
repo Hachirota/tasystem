@@ -1,0 +1,30 @@
+<div class="card mt-3">
+  <div class="card-header"><b>Dashboard</b></div>
+  <div class="card-body">
+    <ng-container *ngIf="authService.isProvider()">
+      <h4 class="card-subtitle mb-2 text-muted">Applicants by Status</h4>
+      <google-chart
+        [data]="staffByStatus"
+        [type]="myType"
+        [title]="staffByStatusTitle"
+        style="width: 100%"
+      ></google-chart
+    ></ng-container>
+    <ng-container *ngIf="authService.isRequester()">
+      <h4 class="card-subtitle mb-2 text-muted">Requests by Status</h4>
+      <ng-container>
+        <google-chart [data]="requestsByStatus" [type]="myType"></google-chart>
+      </ng-container>
+      <hr />
+      <h4 class="card-subtitle mb-2 text-muted">
+        Requests by Applicants Requested
+      </h4>
+      <ng-container>
+        <google-chart
+          [data]="requestsByApplicants"
+          [type]="myType"
+        ></google-chart>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

@@ -21,6 +21,13 @@ export class ApiRequestService {
     return this.http.get<any>(this.URI + '/data/admin/applicantsbystatus');
   }
 
+  getApplicantsByStatusClient(id: String) {
+    id = id.trim();
+    return this.http.get<any>(
+      this.URI + '/data/client/applicantsbystatus/' + id
+    );
+  }
+
   getApplicantsByEmployerAdmin() {
     return this.http.get<any>(this.URI + '/data/admin/applicantsbyemployer');
   }

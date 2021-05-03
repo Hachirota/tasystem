@@ -16,6 +16,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ExternalSplashComponent } from './external-splash/external-splash.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     StaffViewComponent,
     StaffDetailComponent,
     RequestDetailComponent,
+    ExternalSplashComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +41,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSortModule,
     MatTabsModule,
     MatExpansionModule,
+    GoogleChartsModule,
   ],
 })
 export class ExternalusersModule {}

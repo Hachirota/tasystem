@@ -7,12 +7,14 @@ import { RequestViewComponent } from './request-view/request-view.component';
 import { StaffDetailComponent } from './staff-view/staff-detail/staff-detail.component';
 import { StaffViewComponent } from './staff-view/staff-view.component';
 import { RequestDetailComponent } from './request-view/request-detail/request-detail.component';
+import { ExternalSplashComponent } from './external-splash/external-splash.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ExternalusersComponent,
     children: [
+      { path: '', component: ExternalSplashComponent },
       { path: 'addrequest', component: RequestFormComponent },
       { path: 'viewrequests', component: RequestViewComponent },
       { path: 'viewrequests/request/:id', component: RequestDetailComponent },

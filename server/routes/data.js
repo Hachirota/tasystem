@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+var mongoose = require("mongoose");
 const Applicant = require("../models/Applicant");
 const RequestModel = require("../models/Request");
 
@@ -104,6 +104,33 @@ router.get("/admin/requestsbyapplicants", async (req, res) => {
     numberRequested[0].numberrequested - numberAssigned[0].numberassigned,
   ]);
 
+  res.status(200).send(output);
+});
+
+router.get("/client/applicantsbystatus/:id", async (req, res) => {
+  data = await Applicant.aggregate([
+    {
+      $match: {
+        employer: mongoose.Types.ObjectId(req.params.id),
+      },
+    },
+    {
+      $lookup: {
+        from: "clients",
+        localField: "employer",
+        foreignField: "_id",
+        as: "employer",
+      },
+    },
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  output = [];
+  data.forEach((item) => output.push([item._id, item.count]));
   res.status(200).send(output);
 });
 
