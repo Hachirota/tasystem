@@ -1,4 +1,4 @@
-//Request optimal solving of the Hospital Residents problem
+//Algorithm to find request optimal solution to hospital residents problem
 
 class HRRequestOptimal {
   algorithm(requests) {

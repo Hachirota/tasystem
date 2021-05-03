@@ -1,4 +1,4 @@
-// Class to represent applicant player within matching game
+// Class to represent applicant within matching process
 class Applicant {
   constructor(applicantObj) {
     this.id = applicantObj.id;
@@ -17,7 +17,7 @@ class Applicant {
     this.match = null;
   }
 
-  // Deletes a preference
+  // Deletes a preference form its list
   forget(request) {
     this.preferenceList.splice(this.preferenceList.indexOf(request), 1);
   }
