@@ -1,1 +1,10 @@
-<p>splashpage works!</p>
+<div class="container">
+  <p *ngIf="!authService.isAuthenticated()">
+    <br />
+    Welcome to the Temporary Assignments Scheme Portal. Please log in.
+  </p>
+  <p *ngIf="authService.isAuthenticated()">
+    <br />
+    Thank you for logging in. Please access the portal at the link above.
+  </p>
+</div>

@@ -67,7 +67,6 @@ router.post("/login", async (req, res) => {
     }
     if (user.hasSamePassword(password)) {
       let userInfo = await ClientContact.findById(user.dbID).populate("client");
-      console.log(userInfo);
       let tokenBody = {
         userID: user._id,
         firstname: userInfo.firstname,

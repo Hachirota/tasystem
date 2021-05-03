@@ -75,4 +75,12 @@ export class AuthenticationService {
   getClientName(): string {
     return this.decodedtoken.client;
   }
+
+  isRequester(): boolean {
+    return this.decodedtoken.requester;
+  }
+
+  isProvider(): boolean {
+    return this.decodedtoken.provider;
+  }
 }
