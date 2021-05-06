@@ -13,13 +13,15 @@ const rater = new Rater();
 // @route GET /applicant
 router.get("/", async (req, res) => {
   try {
+    // Find all applicants and populate the employer and skills fields
     const data = await Applicant.find()
       .populate([
         { path: "employer", select: "name" },
         { path: "skills", populate: { path: "skills", select: "name" } },
       ])
+      // Converts documents returned to plain JSON instead of a Mongoose document object
       .lean();
-
+    // Return result
     res.status(200).send(data);
   } catch (error) {
     console.error(error);
@@ -71,7 +73,7 @@ router.post("/", async (req, res) => {
       res.status(200).send();
     }
   } catch (error) {
-    //console.error(error)
+    console.error(error);
   }
 });
 

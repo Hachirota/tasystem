@@ -1,5 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ApiRequestService } from 'src/app/api-request.service';
 import { RequestDetailComponent } from './request-detail.component';
 
 describe('RequestDetailComponent', () => {
@@ -8,9 +12,15 @@ describe('RequestDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestDetailComponent ]
-    })
-    .compileComponents();
+      providers: [ApiRequestService],
+      imports: [
+        RouterTestingModule,
+        MatTabsModule,
+        HttpClientTestingModule,
+        MatExpansionModule,
+      ],
+      declarations: [RequestDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

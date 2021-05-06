@@ -12,7 +12,8 @@ class MatchingPrep {
     this.requestOutput = [];
     this.applicantOutput = [];
   }
-  // Function to query the database for the ratings of all open requests, which it then filters down to the ratings of available applicants.
+  // Function to query the database for the ratings of all open requests,
+  // which it then filters down to the ratings of available applicants.
   async ratingQuery(requests) {
     for (const request of requests) {
       await Rating.find({ request: request._id })
@@ -26,13 +27,15 @@ class MatchingPrep {
           availableRatings.forEach((rating) => this.ratingsArr.push(rating));
         });
     }
-
+    // Add the applicant ids found to the applicant id Set
     this.ratingsArr.forEach((rating) =>
       this.appIDs.add(rating.applicant._id.toString())
     );
+    // Then for each applicant id, query their info
     await this.applicantQuery(this.appIDs);
   }
 
+  // Function to query all applicants available to be matched to
   async applicantQuery(applicantIDs) {
     for (const applicantID of applicantIDs) {
       await Applicant.findById(applicantID).then((document) => {
@@ -42,12 +45,17 @@ class MatchingPrep {
   }
 
   requestGen(request) {
+    // Prepare return object and add database ID, scheme reference and number required in the matching round
+    // The number requireed is the number requested - the number currently assigned
     let result = {};
     result.id = request._id.toString();
     result.requestId = request.requestID;
     result.numberRequired =
       request.numberrequired - (request.assigned.length || 0);
     result.prefs = [];
+    // Take the ratings in the ratings array that match the request id
+    // Then sort the array in order of matchfit % from greatest to least
+    // If there is a tie, sort by the distance of the applicants - nearest to furthest
     let reqRatings = this.ratingsArr
       .filter((rating) => rating.request.toString() == result.id)
       .sort((a, b) => {
@@ -57,9 +65,13 @@ class MatchingPrep {
           return b.matchFit - a.matchFit;
         }
       });
+    // Push the applicant ids of the sorted request array into the preference array
+    // This forms the ordered preference list
     reqRatings.forEach((rating) =>
       result.prefs.push(rating.applicant._id.toString())
     );
+
+    // Do not return a request if there are no valid applicants
     if (result.prefs.length > 0) {
       this.requestOutput.push(result);
     }
@@ -84,11 +96,16 @@ class MatchingPrep {
     this.applicantOutput.push(result);
   }
 
+  // Function to prepare for the matching. Is passed an array of open requests
   async matchingPrep(requests) {
+    // Query the information of each request
     await this.ratingQuery(requests);
+    // Prepare each request - This will also prepare an array of available applicants
     requests.forEach((request) => this.requestGen(request));
+    // Prepare each applicant
     this.applicantsArr.forEach((applicant) => this.applicantGen(applicant));
 
+    // Return the results of both generation processes
     let output = {
       applicants: this.applicantOutput,
       requests: this.requestOutput,

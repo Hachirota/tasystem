@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StaffDetailComponent } from './staff-detail.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ApiRequestService } from 'src/app/api-request.service';
 
 describe('StaffDetailComponent', () => {
   let component: StaffDetailComponent;
@@ -8,9 +10,10 @@ describe('StaffDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StaffDetailComponent ]
-    })
-    .compileComponents();
+      providers: [ApiRequestService],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      declarations: [StaffDetailComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

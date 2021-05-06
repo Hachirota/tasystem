@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatchingViewComponent } from './matching-view.component';
@@ -8,9 +9,9 @@ describe('MatchingViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MatchingViewComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [MatchingViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

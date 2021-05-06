@@ -4,8 +4,11 @@ var mongoose = require("mongoose");
 const Applicant = require("../models/Applicant");
 const RequestModel = require("../models/Request");
 
+// @desc Get counts of each status in database
+// @route GET /data/admin/applicantsbystatus
 router.get("/admin/applicantsbystatus", async (req, res) => {
   data = await Applicant.aggregate([
+    // Look up all applicants
     {
       $lookup: {
         from: "clients",
@@ -14,6 +17,7 @@ router.get("/admin/applicantsbystatus", async (req, res) => {
         as: "employer",
       },
     },
+    // Group them by status and convert to a count
     {
       $group: {
         _id: "$status",
@@ -21,13 +25,20 @@ router.get("/admin/applicantsbystatus", async (req, res) => {
       },
     },
   ]);
+
+  // Transforms the output into an array and return the array
+  // [[status: count]]
   output = [];
   data.forEach((item) => output.push([item._id, item.count]));
   res.status(200).send(output);
 });
 
+// @desc Get applicants by status, separated by employer
+// @route GET /data/admin/applicantsbyemployer
 router.get("/admin/applicantsbyemployer", async (req, res) => {
+  // Aggregation pipeline to get applicant stats
   data = await Applicant.aggregate([
+    // Lookup all applicants and join with their employer info
     {
       $lookup: {
         from: "clients",
@@ -36,12 +47,14 @@ router.get("/admin/applicantsbyemployer", async (req, res) => {
         as: "employer",
       },
     },
+    // Gets a count of each employer and status
     {
       $group: {
         _id: { employer: "$employer", status: "$status" },
         count: { $sum: 1 },
       },
     },
+    // Seperates these
     {
       $group: {
         _id: { status: "$_id.employer" },

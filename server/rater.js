@@ -8,7 +8,7 @@ const Rating = require("./models/Rating");
 class Rater {
   // Function to create the rating document
   genRating(request, applicant) {
-    // create object containing criteria
+    // create object containing output
     let results = {
       applicant: applicant._id,
       request: request._id,

@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StaffViewComponent } from './staff-view.component';
@@ -8,9 +9,9 @@ describe('StaffViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StaffViewComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [StaffViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ExternalusersComponent } from './externalusers.component';
 
 describe('ExternalusersComponent', () => {
@@ -8,9 +8,9 @@ describe('ExternalusersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExternalusersComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [ExternalusersComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

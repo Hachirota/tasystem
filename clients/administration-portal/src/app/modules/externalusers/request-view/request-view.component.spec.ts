@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RequestViewComponent } from './request-view.component';
+import { ApiRequestService } from 'src/app/api-request.service';
 
 describe('RequestViewComponent', () => {
   let component: RequestViewComponent;
@@ -8,9 +9,10 @@ describe('RequestViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RequestViewComponent ]
-    })
-    .compileComponents();
+      providers: [ApiRequestService],
+      imports: [HttpClientTestingModule],
+      declarations: [RequestViewComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

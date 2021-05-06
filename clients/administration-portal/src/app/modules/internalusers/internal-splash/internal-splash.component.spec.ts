@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InternalSplashComponent } from './internal-splash.component';
 
 describe('InternalSplashComponent', () => {
@@ -8,9 +8,9 @@ describe('InternalSplashComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InternalSplashComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [InternalSplashComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

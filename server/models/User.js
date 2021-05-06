@@ -7,10 +7,12 @@ const userSchema = new mongoose.Schema({
   dbID: { type: mongoose.Schema.Types.ObjectId, ref: "ClientContact" },
 });
 
+// Method to compare a user entered password with the saved password on login
 userSchema.methods.hasSamePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+// Method to salt and hash a password before saving to the database
 userSchema.pre("save", function (next) {
   const user = this;
   bcrypt.genSalt(10, function (err, salt) {
