@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 const Email = require("email-templates");
 
+//Email transport settings
 const transportconfig = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
@@ -10,6 +11,7 @@ const transportconfig = nodemailer.createTransport({
   },
 });
 
+// E-mail options
 const emailoptions = new Email({
   message: {
     from: "admin@tempassignments.gov.ie",
@@ -19,6 +21,7 @@ const emailoptions = new Email({
   transport: transportconfig,
 });
 
+// Send e-mail on validation
 function applicantValidatedEmail(name, email, employer) {
   emailoptions
     .send({
@@ -34,6 +37,7 @@ function applicantValidatedEmail(name, email, employer) {
     .catch(console.error);
 }
 
+// Send e-mail on assignment
 function applicantAssignedEmail(
   appfirstname,
   appsurname,
@@ -71,6 +75,7 @@ function applicantAssignedEmail(
   });
 }
 
+// Send e-mail on allocation of applicant to request
 function requestAllocationEmail(
   requesterfirstname,
   requestersurname,
@@ -98,6 +103,7 @@ function requestAllocationEmail(
   });
 }
 
+// Send e-mail when applicant accepts assignment
 function applicantAcceptedAssignment(
   applicantfirstname,
   applicantsurname,
@@ -122,6 +128,7 @@ function applicantAcceptedAssignment(
     .catch(console.error);
 }
 
+// Send e-mail when applicant refuses assignment
 function applicantRefusedAssignment(
   applicantfirstname,
   applicantsurname,

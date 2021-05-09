@@ -44,6 +44,7 @@ class MatchingPrep {
     }
   }
 
+  // Function to generate request info for matching
   requestGen(request) {
     // Prepare return object and add database ID, scheme reference and number required in the matching round
     // The number requireed is the number requested - the number currently assigned
@@ -77,10 +78,14 @@ class MatchingPrep {
     }
   }
 
+  // Function to generate applicant info for matching
   applicantGen(applicant) {
     let result = {};
     result.id = applicant._id.toString();
     result.prefs = [];
+    // Take the ratings in the ratings array that match the applicant id
+    // Then sort by the distance of the requests - nearest to furthest
+    // If there is a tie, break the tie by matchfit % from greatest to least
     let appRatings = this.ratingsArr
       .filter((rating) => rating.applicant._id.toString() == result.id)
       .sort((a, b) => {
@@ -90,6 +95,8 @@ class MatchingPrep {
           return a.distance - b.distance;
         }
       });
+    // Push the request ids of the sorted applicant array into the preference array
+    // This forms the ordered preference list
     appRatings.forEach((rating) =>
       result.prefs.push(rating.request._id.toString())
     );

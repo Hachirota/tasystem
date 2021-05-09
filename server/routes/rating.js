@@ -27,6 +27,8 @@ router.get("/request/:id", async (req, res) => {
   }
 });
 
+// @desc Route to get ratings related to open requests for a given applicant
+// @route GET /rating/applicant/:id
 router.get("/applicant/:id", async (req, res) => {
   applicantID = req.params.id;
   try {

@@ -76,6 +76,8 @@ router.get("/admin/applicantsbyemployer", async (req, res) => {
   res.status(200).send(output);
 });
 
+// @desc Get requests data, separated by status
+// @route GET /data/admin/requestsbystatus
 router.get("/admin/requestsbystatus", async (req, res) => {
   data = await RequestModel.aggregate([
     {
@@ -91,6 +93,8 @@ router.get("/admin/requestsbystatus", async (req, res) => {
   res.status(200).send(output);
 });
 
+// @desc Get applicants by status, separated by employer
+// @route GET /data/admin/requestsbyapplicants
 router.get("/admin/requestsbyapplicants", async (req, res) => {
   numberRequested = await RequestModel.aggregate([
     {
@@ -120,6 +124,8 @@ router.get("/admin/requestsbyapplicants", async (req, res) => {
   res.status(200).send(output);
 });
 
+// @desc Get counts of each applicant by status in database for a given employer
+// @route GET /data/client/applicantsbystatus/:id
 router.get("/client/applicantsbystatus/:id", async (req, res) => {
   data = await Applicant.aggregate([
     {
