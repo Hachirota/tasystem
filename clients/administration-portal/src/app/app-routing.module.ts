@@ -6,6 +6,7 @@ import { SplashpageComponent } from './splashpage/splashpage.component';
 const routes: Routes = [
   { path: '', component: SplashpageComponent },
   { path: 'login', component: LoginpageComponent },
+  // Load the Internal & External modules only when their path is navigated to
   {
     path: 'admin',
     loadChildren: () =>

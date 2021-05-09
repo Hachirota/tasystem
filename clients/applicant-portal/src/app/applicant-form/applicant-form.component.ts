@@ -28,7 +28,9 @@ export class ApplicantFormComponent implements OnInit {
   availableSkills = [];
   skillsTouched = false;
 
+  // Create Angular FormBuilder group
   applicantForm = this.fb.group({
+    // Add fields, and validators used to control input
     ppsnumber: ['', Validators.required],
     firstname: ['', Validators.required],
     surname: ['', Validators.required],
@@ -51,12 +53,13 @@ export class ApplicantFormComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {}
-
+  // On component instantiation, call API getters
   ngOnInit(): void {
     this.getEmployers();
     this.getSkills();
   }
 
+  // Functions to get information using API service
   getEmployers() {
     this.apiService
       .getEmployers()
@@ -69,6 +72,7 @@ export class ApplicantFormComponent implements OnInit {
       .subscribe((skills) => (this.availableSkills = skills));
   }
 
+  // Getters for form fields, used in validators
   get ppsnumber() {
     return this.applicantForm.get('ppsnumber');
   }
@@ -109,6 +113,7 @@ export class ApplicantFormComponent implements OnInit {
     return this.applicantForm.get('fulltime');
   }
 
+  // Function to add or remove skills based on checkbox selection
   onCheckboxChange(e) {
     this.skillsTouched = true;
     const checkArray: FormArray = this.applicantForm.get('skills') as FormArray;
@@ -127,6 +132,7 @@ export class ApplicantFormComponent implements OnInit {
     }
   }
 
+  // Function called on form submission to post applicant data to server
   onSubmit() {
     this.applicantForm.value.fulltime =
       this.applicantForm.value.fulltime === 'true' ? true : false;

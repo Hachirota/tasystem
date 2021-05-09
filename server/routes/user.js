@@ -54,19 +54,27 @@ router.post("/", async (req, res) => {
   }
 });
 
+// @desc Process login request from front-end
+// @route POST /user/login
 router.post("/login", async (req, res) => {
+  // Take login info from request body
   const { email, password } = req.body;
 
+  // Find user by e-mail provided
   User.findOne({ email }, async (err, user) => {
     if (err) {
       return res.status(422).json({ error: "Something went wrong!" });
     }
-
+    // If no user found, return failure message
     if (!user) {
       return res.status(422).json({ error: "Invalid User" });
     }
+    // If user found:
+    // Check if the submitted password matches the password in db
     if (user.hasSamePassword(password)) {
+      // If it does, get user's details from client contact collection
       let userInfo = await ClientContact.findById(user.dbID).populate("client");
+      // Create the jwt body from details
       let tokenBody = {
         userID: user._id,
         firstname: userInfo.firstname,
@@ -77,10 +85,12 @@ router.post("/login", async (req, res) => {
         provider: userInfo.client.providingapplicants,
         requester: userInfo.client.requestingapplicants,
       };
-
+      // Sign the token with private key and set expiry time
       jsonToken = jwt.sign(tokenBody, RSA_PRIVATE_KEY, { expiresIn: "1h" });
+      //Return token
       return res.json(jsonToken);
     } else {
+      // If password doesn't match, return error
       return res.status(422).json({ error: "Invalid e-mail or password" });
     }
   });

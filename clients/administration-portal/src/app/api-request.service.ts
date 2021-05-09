@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Applicant } from './shared/models/Applicant';
 import { ClientContact } from './shared/models/ClientContact';
 
@@ -65,7 +66,8 @@ export class ApiRequestService {
     return this.http.get<any>(this.URI + '/client/request/' + id);
   }
 
-  getApplicants() {
+  // Get all applicants from database
+  getApplicants(): Observable<[Applicant]> {
     return this.http.get<[Applicant]>(this.URI + '/applicant');
   }
 

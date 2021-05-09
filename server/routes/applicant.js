@@ -95,7 +95,7 @@ router.put("/:id", async (req, res) => {
           populate: { path: "requester", populate: { path: "client" } },
         })
         .execPopulate();
-      // If update was to validate applicant, trigger notification e-mail
+      // If update requires e-mail notification, trigger particular email
       if (req.body.status == "Validated") {
         emailservice.applicantValidatedEmail(
           applicant.firstname,

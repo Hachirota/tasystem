@@ -11,19 +11,24 @@ export class ApiRequestService {
     }),
   };
 
+  URI: String = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
-
+  // Get all employers who are providing applicants to the scheme,
+  // used in dropdown list in app form
   getEmployers() {
-    return this.http.get<any>('http://localhost:3000/client/providers');
+    return this.http.get<any>(this.URI + '/client/providers');
   }
 
+  // Get all skills applicant is able to select
   getSkills() {
-    return this.http.get<any>('http://localhost:3000/skills');
+    return this.http.get<any>(this.URI + '/skills');
   }
 
+  // Post submitted application to server
   postApplicant(applicant) {
     return this.http.post<any>(
-      'http://localhost:3000/applicant',
+      this.URI + '/applicant',
       applicant,
       this.httpOptions
     );

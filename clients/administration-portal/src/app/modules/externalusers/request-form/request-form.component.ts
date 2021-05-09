@@ -38,9 +38,9 @@ export class RequestFormComponent implements OnInit {
     private authService: AuthenticationService
   ) {
     this.requestForm = this.fb.group({
-      graderequired: '',
-      numberrequired: '',
-      fulltime: '',
+      graderequired: ['', Validators.required],
+      numberrequired: ['', Validators.required],
+      fulltime: ['', Validators.required],
       skillsrequested: this.fb.array([this.createSkill()]),
     });
   }

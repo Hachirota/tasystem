@@ -54,7 +54,7 @@ router.get("/admin/applicantsbyemployer", async (req, res) => {
         count: { $sum: 1 },
       },
     },
-    // Seperates these
+    // Separate them by employer
     {
       $group: {
         _id: { status: "$_id.employer" },

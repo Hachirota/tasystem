@@ -58,10 +58,13 @@ router.get("/matching", async (req, res) => {
             // Update applicants and send emails
             applicants.forEach((applicant) => {
               Applicant.findById(applicant).then(async (document) => {
+                // Set applicants status to assigned, and save to database
                 document.status = "Assigned";
                 document.assignment = request.id;
                 document.save();
+                // Database returns updated document as a promise once returned
                 await document
+                  // Populate employer and assignment info
                   .populate("employer")
                   .populate({
                     path: "assignment",
@@ -71,6 +74,7 @@ router.get("/matching", async (req, res) => {
                     },
                   })
                   .execPopulate()
+                  // Then send assignment & allocation notifications
                   .then(
                     (document) => {
                       emailservice.applicantAssignedEmail(

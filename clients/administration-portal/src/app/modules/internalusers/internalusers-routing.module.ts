@@ -11,9 +11,11 @@ import { RequestDetailComponent } from './request-view/request-detail/request-de
 import { RequestViewComponent } from './request-view/request-view.component';
 
 const routes: Routes = [
+  // Root Path
   {
     path: '',
     component: InternalusersComponent,
+    // Child Routes
     children: [
       { path: '', component: InternalSplashComponent },
       { path: 'applicants', component: ApplicantViewComponent },

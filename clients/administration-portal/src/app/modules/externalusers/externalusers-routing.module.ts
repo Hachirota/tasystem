@@ -11,8 +11,10 @@ import { ExternalSplashComponent } from './external-splash/external-splash.compo
 
 const routes: Routes = [
   {
+    // Root Path
     path: '',
     component: ExternalusersComponent,
+    // Child routes, the External Splash is initially loaded
     children: [
       { path: '', component: ExternalSplashComponent },
       { path: 'addrequest', component: RequestFormComponent },
