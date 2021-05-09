@@ -18,12 +18,25 @@
         <li>
           <button
             (click)="validate()"
-            class="btn btn-warning"
-            *ngIf="applicant?.status == 'Unvalidated'"
+            class="btn btn-success"
+            *ngIf="
+              applicant?.status == 'Unvalidated' ||
+              applicant?.status == 'Not Releasable'
+            "
           >
             Validate
           </button>
-          <button class="btn btn-danger" routerLink="/clients/staff/">
+          <button
+            (click)="withdraw()"
+            class="ml-1 btn btn-warning"
+            *ngIf="
+              applicant?.status == 'Unvalidated' ||
+              applicant?.status == 'Validated'
+            "
+          >
+            Withdraw
+          </button>
+          <button class="ml-1 btn btn-danger" routerLink="/clients/staff/">
             Back
           </button>
         </li>

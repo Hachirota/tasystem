@@ -32,4 +32,12 @@ export class StaffDetailComponent implements OnInit {
         this.applicant = applicant;
       });
   }
+
+  withdraw() {
+    this.apiService
+      .updateApplicant(this.id, { status: 'Not Releasable' })
+      .subscribe((applicant) => {
+        this.applicant = applicant;
+      });
+  }
 }
