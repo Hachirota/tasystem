@@ -2,9 +2,11 @@
   <div class="card-header">
     Request Form - <em class="text-muted">All Fields Are Required</em>
   </div>
+  <div class="alert alert-success" *ngIf="submitted">Request Logged!</div>
   <form
     [formGroup]="requestForm"
     class="container mt-3"
+    *ngIf="!submitted"
     (ngSubmit)="submitRequest()"
   >
     <div class="form-group">

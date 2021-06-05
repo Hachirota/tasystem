@@ -19,6 +19,7 @@ import { ClientContact } from 'src/app/shared/models/ClientContact';
 export class RequestFormComponent implements OnInit {
   public skills: FormArray;
   public requestForm: FormGroup;
+  submitted: Boolean = false;
   grades = [
     'Clerical Officer',
     'Executive Officer',
@@ -84,6 +85,8 @@ export class RequestFormComponent implements OnInit {
 
   submitRequest(): void {
     this.requestForm.value.requester = this.requester._id;
-    this.apiService.postRequest(this.requestForm.value).subscribe();
+    this.apiService
+      .postRequest(this.requestForm.value)
+      .subscribe(() => (this.submitted = true));
   }
 }
